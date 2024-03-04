@@ -1,13 +1,8 @@
 <div class="author">
-    <h1 class="author__heading"> PreMedTalk</h1>
-    <p class="author__body">Talk.</p>
+    <h1 class="author__heading">Search Results</h1>
 </div>
 
-<img src="/img/main.jpg" alt="panda" width="981" height"528">
-
 <section class="articles">
-    <h2 class="articles__heading">Latest Posts</h2>
-    
     <ul class="article-ul">
         <% data.forEach(post => { %>
         <li>
@@ -19,11 +14,5 @@
         <% }) %>
 
     </ul>
-    
-    <% if (nextPage !== null) { %>
-        <a href="/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
-    <% } %>
 
-
-    
 </section>
