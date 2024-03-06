@@ -11,7 +11,7 @@ router.get('', async (req, res) => {
 
     try {
         const locals = {
-            title: "NodeJs Blog",
+            title: "PreMedTalk",
             description: "Temp Blog"
         }
         
@@ -46,23 +46,25 @@ router.get('', async (req, res) => {
  */
 router.get('/post/:id', async (req, res) => {
     try {
-    
-        let slug = req.params.id;
-
-        const data = await Post.findById({_id: slug});
-
-        const locals = {
-            title: data.title,
-            description: "Simple Blog created with NodeJs, Express & MongoDb.",
-            currentRoute: `/post/${slug}`
-        }
-
-        res.render('post', { locals, data, currentRoute });
+      let slug = req.params.id;
+  
+      const data = await Post.findById({ _id: slug });
+  
+      const locals = {
+        title: data.title,
+        description: "Simple Blog created with NodeJs, Express & MongoDb.",
+      }
+  
+      res.render('post', { 
+        locals,
+        data,
+        currentRoute: `/post/${slug}`
+      });
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-
-});
+  
+  });
 
 router.get('/about', (req, res)=> {
     res.render('about', {
@@ -81,31 +83,34 @@ router.get('/contact', (req, res)=> {
  * searchTerm
  */
 router.post('/search', async (req, res) => {
-  try {
-    const locals = {
-        title: "Search",
+    try {
+      const locals = {
+        title: "Seach",
         description: "Simple Blog created with NodeJs, Express & MongoDb."
       }
-
-    let searchTerm = req.body.searchTerm;
-    const searchNoSpecialChar = searchTerm.replace(/[^a-zA-z0-9 ]/g, "")
-
-    const data = await Post.find({
+  
+      let searchTerm = req.body.searchTerm;
+      const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "")
+  
+      const data = await Post.find({
         $or: [
-            { title: { $regex: new RegExp(searchNoSpecialChar, 'i') }},
-            { body: { $regex: new RegExp(searchNoSpecialChar, 'i') }}
+          { title: { $regex: new RegExp(searchNoSpecialChar, 'i') }},
+          { body: { $regex: new RegExp(searchNoSpecialChar, 'i') }}
         ]
-    });
-
-    res.render("search", {
+      });
+  
+      res.render("search", {
         data,
-        locals
-        });
-    
-  } catch (error) {
-    console.log(error);
-  }
-});
+        locals,
+        currentRoute: '/'
+      });
+  
+    } catch (error) {
+      console.log(error);
+    }
+  
+  });
+  
 
 // function insertPostData () {
 //     Post.insertMany([

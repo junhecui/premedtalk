@@ -6,6 +6,10 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
+    author: {
+        type: String,
+        required: true
+    },
     body: {
         type: String,
         required: true
@@ -17,10 +21,14 @@ const PostSchema = new Schema({
     updatedAt: {
         type: Date,
         default: Date.now
-    }
-    /**
-     * author
-     * image */ 
+    },
+    // location: {
+    //     type: String,
+    // },
+    // image: {
+    //     type: image,
+        
+    // }
 });
 
 module.exports = mongoose.model('Post', PostSchema);
