@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+// const serverless = require('serverless-http');
 const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
@@ -45,3 +46,5 @@ app.use('/', require('./server/routes/admin'));
 app.listen(PORT, ()=> {
     console.log(`App listening on port ${PORT}`);
 });
+
+// module.exports.handler = serverless(app);
