@@ -6,10 +6,11 @@ const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
-const session = require('express-session')
+const session = require('express-session');
 
 const connectDB = require('./server/config/db');
 const { isActiveRoute } = require('./server/helpers/routeHelpers')
+
 
 const app = express();
 const PORT = process.env.PORT || 8000;

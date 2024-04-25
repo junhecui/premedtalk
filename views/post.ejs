@@ -1,4 +1,10 @@
 <h1><%= data.title %></h1>
-<article class="article">
+
+<% if (data.imageUrl) { %>
+    <img src="<%= data.imageUrl %>" alt="<%= data.title %> Image" style="max-width: 100%; height: auto;">
+<% } %>
+
+<article class="article">    
     <%= data.body %>
 </article>
+

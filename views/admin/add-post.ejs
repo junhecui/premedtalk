@@ -3,13 +3,16 @@
     <h2>Add New Post</h2>
 </div>
 
-<form action="/add-post" method="POST">
+<form action="/add-post" method="POST" enctype="multipart/form-data">
 
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Post Title" name="title">
 
     <label for="body"><b>Content</b></label>
     <textarea name="body" cols="50" rows="10"></textarea>
+
+    <label for="postImage"><b>Upload Image</b></label>
+    <input type="file" name="postImage" accept="image/*">
 
     <input type="submit" value="Add" class="btn">
 </form>
