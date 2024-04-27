@@ -1,26 +1,27 @@
+<!-- Section title and button to add new posts -->
 <div class="admin-title">
   <h2>Posts</h2>
-  <a href="/add-post" class="button">+ Add New</a>
+  <a href="/add-post" class="button">+ Add New</a> <!-- Link to add a new post -->
 </div>
 
+<!-- List of posts with edit and delete options -->
 <ul class="admin-posts">
+  <% data.forEach(post => { %> <!-- Loop through each post in the data array -->
+      <li>
+          <!-- Link to view the specific post -->
+          <a href="/post/<%= post._id %>" aria-label="View <%= post.title %>">
+              <%= post.title %> &nearr;
+          </a>
+          <!-- Post management buttons -->
+          <div class="admin-post-controls">
+              <!-- Button to edit the post -->
+              <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
 
-  <% data.forEach(post => { %>
-   
-    <li>
-      <a href="/post/<%= post._id %>">
-        <%= post.title %> &nearr;
-      </a>
-      <div class="admin-post-controls">
-        <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
-
-        <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST">
-          <input type="submit" value="Delete" class="btn-delete btn">
-        </form>
-
-      </div>
-
-    </li>
-
+              <!-- Form to delete the post -->
+              <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                  <input type="submit" value="Delete" class="btn-delete btn" aria-label="Delete <%= post.title %>">
+              </form>
+          </div>
+      </li>
   <% }) %>
 </ul>

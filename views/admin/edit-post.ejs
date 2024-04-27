@@ -1,24 +1,30 @@
-<a href="/dashboard">&larr; Back</a>
+<!-- Navigation link to go back to the dashboard -->
+<a href="/dashboard" aria-label="Back to dashboard">&larr; Back</a>
+
+<!-- Title section and delete action for the form -->
 <div class="admin-title">
     <h2>View / Edit Post</h2>
-
-    <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST">
-        <input type="submit" value="Delete" class="btn-delete btn">
-    </form>
     
-
+    <!-- Form for deleting the current post -->
+    <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+        <input type="submit" value="Delete" class="btn-delete btn" aria-label="Delete post">
+    </form>
 </div>
 
+<!-- Form to edit the current post -->
 <form action="/edit-post/<%= data._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
-
+    <!-- Input field for the post's title -->
     <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>">
+    <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>" id="title" required>
 
+    <!-- Textarea for editing the post's content -->
     <label for="body"><b>Content</b></label>
-    <textarea name="body" cols="50" rows="10"><%= data.body %></textarea>
+    <textarea name="body" cols="50" rows="10" id="body" required><%= data.body %></textarea>
 
-    <input type="submit" value="Update" class="btn">
-
-    <input type="file" name="postImage">
+    <!-- File input for uploading a new image for the post -->
+    <label for="postImage"><b>Upload New Image (optional)</b></label>
+    <input type="file" name="postImage" id="postImage" accept="image/*">
+    
+    <!-- Submit button for updating the post -->
     <input type="submit" value="Update" class="btn">
 </form>

@@ -1,337 +1,202 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/Post');
-const User = require('../models/User');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const multer = require('multer');
-const { S3Client } = require('@aws-sdk/client-s3');
-const multerS3 = require('multer-s3');
+const Post = require('../models/Post'); // Importing the Post model for database interactions
+const User = require('../models/User'); // Importing the User model for database interactions
+const bcrypt = require('bcrypt'); // bcrypt library for password hashing
+const jwt = require('jsonwebtoken'); // JWT for generating and verifying JSON Web Tokens
+const multer = require('multer'); // multer for handling multipart/form-data, primarily used for file uploads
+const { S3Client } = require('@aws-sdk/client-s3'); // AWS SDK's S3 Client for interacting with Amazon S3
+const multerS3 = require('multer-s3'); // Extension of multer that enables files to be stored in S3
+const adminLayout = '../views/layouts/admin'; // Admin layout path for rendering views
+const jwtSecret = process.env.JWT_SECRET; // JWT secret key from environment variables
 
-const adminLayout = '../views/layouts/admin';
-const jwtSecret = process.env.JWT_SECRET;
-
+// AWS S3 client configuration using environment variables for credentials
 const s3Client = new S3Client({
   region: 'us-west-2',
-  credentials: { 
+  credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
 });
 
+// Configuration for multer to use memory storage, which stores the files in memory
 const upload = multer({
-  storage: multer.memoryStorage(), // Use memory storage for buffering
+  storage: multer.memoryStorage(),
 });
 
-const { Upload } = require('@aws-sdk/lib-storage');
+const { Upload } = require('@aws-sdk/lib-storage'); // Importing Upload from AWS SDK for parallel uploads
 
-
-/**
- * Check Login
- */
+// Middleware to check if the user is authenticated by verifying the JWT
 const authMiddleware = (req, res, next) => {
-    const token = req.cookies.token;
-
-    if (!token) {
-        return res.status(401).json( { message: 'Unauthorized' } );
-    }
-
-    try {
-        const decoded = jwt.verify(token, jwtSecret);
-        req.userId = decoded.userId;
-        next();
-    } catch (error) {
-        res.status(401).json( { message: 'Unauthorized' } );
-    }
-}
-
-/**
- * GET /
- * Admin Login
- */
-
-router.get('/admin', async (req, res) => {
-
+  const token = req.cookies.token; // Extract token from cookies
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized' }); // Respond with 401 if no token is found
+  }
   try {
-    const locals = {
+    const decoded = jwt.verify(token, jwtSecret); // Verify token
+    req.userId = decoded.userId; // Set user ID from token
+    next(); // Continue to the next middleware
+  } catch (error) {
+    res.status(401).json({ message: 'Unauthorized' }); // Catch any error during token verification
+  }
+};
+
+// Route to render the admin login page
+router.get('/admin', async (req, res) => {
+  try {
+    res.render('admin/index', {
+      locals: {
         title: "Admin",
         description: "Simple Blog created with NodeJs, Express & MongoDb."
-      }
-
-    res.render('admin/index', { locals, layout: adminLayout });
+      },
+      layout: adminLayout
+    });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
-
 });
 
-/**
- * POST /
- * Admin Check Login
- */
-
+// Route for handling post addition with image upload to AWS S3
 router.post('/add-post', upload.single('postImage'), async (req, res) => {
-  const file = req.file; // The uploaded file buffer
+  if (!req.file) {
+    console.error('File upload failed.');
+    return res.status(400).send('File upload is required.');
+  }
 
+  const file = req.file;
   const uploadParams = {
-    Bucket: 'premedtalk-images', // Ensure this bucket name is correct and accessible
+    Bucket: 'premedtalk-images',
     Key: `${Date.now().toString()}-${file.originalname}`,
-    Body: file.buffer, // Pass the buffer
+    Body: file.buffer,
+    ContentType: file.mimetype,
+    ACL: 'public-read'
   };
 
   try {
-    // Create the upload instance
     const parallelUploads3 = new Upload({
       client: s3Client,
       params: uploadParams,
     });
-
-    // Start the upload
     const uploadResult = await parallelUploads3.done();
-    console.log(uploadResult);
-
-    // Save the URL in your database
-    const imageUrl = `https://premedtalk-images.s3.us-west-2.amazonaws.com/${uploadParams.Key}`;
-
-    // Assuming you're missing the database save operation here
+    const imageUrl = uploadResult.Location;
     const newPost = new Post({
       title: req.body.title,
       body: req.body.body,
       imageUrl: imageUrl,
-      // Add other necessary fields
     });
     await newPost.save();
-
     res.redirect('/dashboard');
   } catch (err) {
-    console.error('Error uploading file:', err);
+    console.error('Error uploading file to S3:', err);
     res.status(500).send('Error uploading file');
   }
 });
 
-
-/**
- * GET /
- * Admin Dashboard
- */
-
+// Route to display the admin dashboard with a list of posts
 router.get('/dashboard', authMiddleware, async (req, res) => {
-    try {
-      const locals = {
-        title: 'Dashboard',
-        description: 'Simple Blog created with NodeJs, Express & MongoDb.'
-      }
-  
-      const data = await Post.find();
-      res.render('admin/dashboard', {
-        locals,
-        data,
-        layout: adminLayout
-      });
-  
-    } catch (error) {
-      console.log(error);
-    }
-  
-  });
-  
-/**
- * GET /
- * Admin Create Post
- */
-
-router.get('/add-post', authMiddleware, async (req, res) => {
   try {
-    const locals = {
-      title: 'Add Post',
-      description: 'Simple Blog created with NodeJs, Express & MongoDb.'
-    }
-
     const data = await Post.find();
-    res.render('admin/add-post', {
-      locals,
+    res.render('admin/dashboard', {
+      locals: {
+        title: 'Dashboard',
+        description: 'Manage your posts and settings here.'
+      },
+      data,
       layout: adminLayout
     });
-
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
-
 });
 
-// router.post('/add-post', upload.single('postImage'), async (req, res) => {
-//   const file = req.file; // The uploaded file buffer
+// Route to render the page to add a new post
+router.get('/add-post', authMiddleware, async (req, res) => {
+  try {
+    res.render('admin/add-post', {
+      locals: {
+        title: 'Add Post',
+        description: 'Create a new post.'
+      },
+      layout: adminLayout
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
 
-//   const uploadParams = {
-//     Bucket: 'premedtalk-images',
-//     Key: `${Date.now().toString()}-${file.originalname}`,
-//     Body: file.buffer, // Pass the buffer
-//   };
+// Route to render the edit post page
+router.get('/edit-post/:id', authMiddleware, async (req, res) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.id });
+    res.render('admin/edit-post', {
+      locals: {
+        title: "Edit Post",
+        description: "Edit your post."
+      },
+      data: post,
+      layout: adminLayout
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
 
-//   try {
-//     // Create the upload instance
-//     const parallelUploads3 = new Upload({
-//       client: s3Client,
-//       params: uploadParams,
-//     });
-
-//     // Start the upload
-//     const uploadResult = await parallelUploads3.done();
-//     console.log(uploadResult);
-
-//     // Save the URL in your database
-//     const imageUrl = `https://${uploadParams.Bucket}.s3.${s3Client.config.region}.amazonaws.com/${uploadParams.Key}`;
-//     // Continue with your database save operation...
-    
-//   } catch (err) {
-//     console.error('Error uploading file:', err);
-//     res.status(500).send('Error uploading file');
-//   }
-// });
-
-
-  /**
- * GET /
- * Admin Create New Post
- */
-
-// router.post('/add-post', authMiddleware, upload.single('postImage'), async (req, res) => {
-//     try {
-//         console.log(req.body);
-
-//         try {
-//             const newPost = new Post({
-//                 title: req.body.title,
-//                 body: req.body.body,
-//                 imageUrl: req.file.location
-//             });
-//             await newPost.save();
-//             await Post.create(newPost)
-              
-//       res.redirect('/dashboard');
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     } catch (error) {
-//       console.log(error);
-//     }
-  
-//   });
-
-  /**
- * GET /
- * Admin Create New Post
- */
-
-  router.get('/edit-post/:id', authMiddleware, async (req, res) => {
-    try {
-
-        const locals = {
-            title: "Edit Post",
-            description: "Edit",
-        };
-
-        const data = await Post.findOne({ _id: req.params.id });
-
-        res.render('admin/edit-post', {
-            locals,
-            data,
-            layout: adminLayout
-        });
-
-    } catch (error) {
-      console.log(error);
-    }
-  
-  });
-
-  /**
- * PUT /
- * Admin Create New Post
- */
-
+// Route to update a post
 router.put('/edit-post/:id', authMiddleware, upload.single('postImage'), async (req, res) => {
-  const updateData = {
-    title: req.body.title,
-    body: req.body.body,
-    updatedAt: Date.now()
-  };
-  if (req.file) {
-    updateData.image = req.file.path.replace('public', '');
-  }
-  await Post.findByIdAndUpdate(req.params.id, updateData);
-  res.redirect(`/edit-post/${req.params.id}`);
-  });
-
- /**
- * DELETE /
- * Admin Delete Post
- */
-
- router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
   try {
-      await Post.deleteOne({ _id: req.params.id });
-      res.redirect('/dashboard');
-  } catch (error) {
-      console.log(error);
-      res.status(500).send('Error deleting the post');
-  }
-});
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
 
+    // Prepare the basic update data
+    const updateData = {
+      title: req.body.title,
+      body: req.body.body,
+      updatedAt: new Date()
+    };
 
-
-
-   /**
- * GET /
- * Admin Logout
- */
-router.get('/logout', (req, res) => {
-    res.clearCookie('token');
-    res.redirect('/');
-});
-
-/**
- * POST /
- * Admin Register
- */
-
-// router.post('/register', async (req, res) => {
-
-//     try {
-//         const { username, password } = req.body;
-//         const hashedPassword = await bcrypt.hash(password, 10);
-
-//         try {
-//             const user = await User.create({ username, password: hashedPassword });
-//             res.status(201).json({ message: 'User Created ', user });
-//         } catch (error) {
-//             if(error.code == 110000) {
-//                 res.status(409).json({ message: 'User already in use'});
-//             }
-//             res.status(500).json({ message: 'Internal server error' })
-//         }
-//     } catch (error) {
-//       console.log(error);
-//     }
-  
-//   });
-
-router.get('/add-post', authMiddleware, (req, res) => {
-  try {
-      const locals = {
-          title: "Add New Post",
-          description: "Create a new post in your blog"
+    if (req.file) {
+      const file = req.file;
+      const uploadParams = {
+        Bucket: 'premedtalk-images',
+        Key: `${Date.now().toString()}-${file.originalname}`,
+        Body: file.buffer,
+        ContentType: file.mimetype,
+        ACL: 'public-read'
       };
-
-      // Render the add-post page with the adminLayout
-      res.render('admin/add-post', {
-          locals,
-          layout: adminLayout
+      const parallelUploads3 = new Upload({
+        client: s3Client,
+        params: uploadParams,
       });
+      const uploadResult = await parallelUploads3.done();
+      updateData.imageUrl = uploadResult.Location; // Update only if new image uploaded
+    }
+
+    await Post.findByIdAndUpdate(req.params.id, updateData);
+    res.redirect('/dashboard'); // Redirect to the dashboard after updating
   } catch (error) {
-    console.log(error);
-    res.status(500).send('Error loading the Add New Post page');
+    console.error('Failed to update post:', error);
+    res.redirect(`/edit-post/${req.params.id}`); // Redirect back to the edit page if there's an error
   }
+});
+
+
+// Route to delete a post
+router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
+  try {
+    await Post.deleteOne({ _id: req.params.id });
+    res.redirect('/dashboard');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error deleting the post');
+  }
+});
+
+// Route to handle admin logout
+router.get('/logout', (req, res) => {
+  res.clearCookie('token');
+  res.redirect('/');
 });
 
 module.exports = router;
