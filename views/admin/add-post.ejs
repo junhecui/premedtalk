@@ -1,18 +1,25 @@
-<a href="/dashboard">&larr; Back</a>
+<!-- Navigation link to go back to the dashboard -->
+<a href="/dashboard" aria-label="Back to dashboard">&larr; Back</a>
+
+<!-- Title section for the form -->
 <div class="admin-title">
     <h2>Add New Post</h2>
 </div>
 
+<!-- Form for adding a new post. The method POST ensures data is sent as a request body -->
 <form action="/add-post" method="POST" enctype="multipart/form-data">
-
+    <!-- Label and input for the post's title. 'for' attribute in label must match the 'id' attribute in input -->
     <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Post Title" name="title">
+    <input type="text" placeholder="Enter Post Title" id="title" name="title" required>
 
+    <!-- Label and textarea for the post's content/body -->
     <label for="body"><b>Content</b></label>
-    <textarea name="body" cols="50" rows="10"></textarea>
+    <textarea id="body" name="body" cols="50" rows="10" placeholder="Write your post content here..." required></textarea>
 
+    <!-- Label and input for file upload. Only accepts image files -->
     <label for="postImage"><b>Upload Image</b></label>
-    <input type="file" name="postImage" accept="image/*">
+    <input type="file" id="postImage" name="postImage" accept="image/*">
 
+    <!-- Submit button for the form -->
     <input type="submit" value="Add" class="btn">
 </form>
