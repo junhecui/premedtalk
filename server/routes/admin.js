@@ -56,6 +56,36 @@ router.get('/admin', async (req, res) => {
   }
 });
 
+// POST route for admin login
+router.post('/admin', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+      // Find user in the database
+      const user = await User.findOne({ username: username });
+      if (!user) {
+          return res.status(401).send('Login failed: User not found.');
+      }
+
+      // Compare password with hashed password in database
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+          return res.status(401).send('Login failed: Incorrect password.');
+      }
+
+      // Create a token for the user
+      const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
+
+      // Set the token in a HTTP-only cookie
+      res.cookie('token', token, { httpOnly: true });
+      res.redirect('/dashboard');  // Redirect to the dashboard on successful login
+  } catch (error) {
+      console.error('Error during login:', error);
+      res.status(500).send('Internal server error during login.');
+  }
+});
+
+
 // Route for handling post addition with image upload to AWS S3
 router.post('/add-post', upload.single('postImage'), async (req, res) => {
   if (!req.file) {
