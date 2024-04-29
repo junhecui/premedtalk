@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const emailUserSchema = new mongoose.Schema({
+const EmailUserSchema = new Schema({
   email: {
     type: String,
     required: [true, 'Email address is required'],
@@ -21,6 +22,10 @@ const emailUserSchema = new mongoose.Schema({
   subscriptionDate: {
     type: Date,
     default: Date.now
+  },
+  currentlySubscribed: {
+    type: Boolean,
+    default: true
   }
 });
 
@@ -30,6 +35,4 @@ function emailValidator(value) {
   return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(value);
 }
 
-const EmailUser = mongoose.model('EmailUser', emailUserSchema);
-
-module.exports = EmailUser;
+module.exports = mongoose.model('EmailUser', EmailUserSchema);

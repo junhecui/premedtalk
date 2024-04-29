@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post'); // Importing the Post model for database interactions
 const User = require('../models/User'); // Importing the User model for database interactions
+const EmailUser = require('../models/EmailUser');
 const bcrypt = require('bcrypt'); // bcrypt library for password hashing
 const jwt = require('jsonwebtoken'); // JWT for generating and verifying JSON Web Tokens
 const multer = require('multer'); // multer for handling multipart/form-data, primarily used for file uploads
@@ -9,6 +10,17 @@ const { S3Client } = require('@aws-sdk/client-s3'); // AWS SDK's S3 Client for i
 const multerS3 = require('multer-s3'); // Extension of multer that enables files to be stored in S3
 const adminLayout = '../views/layouts/admin'; // Admin layout path for rendering views
 const jwtSecret = process.env.JWT_SECRET; // JWT secret key from environment variables
+const nodemailer = require('nodemailer');
+
+// Configure transport options
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'cjunhe05@gmail.com',
+        pass: process.env.EMAIL_PASSWORD
+    }
+});
+
 
 // AWS S3 client configuration using environment variables for credentials
 const s3Client = new S3Client({
@@ -87,47 +99,68 @@ router.post('/admin', async (req, res) => {
 
 
 // Route for handling post addition with image upload to AWS S3
+// POST route for adding a new post with email notifications to subscribers
 router.post('/add-post', upload.single('postImage'), async (req, res) => {
-  const title = req.body.title;
-  const body = req.body.body; // Body now contains the HTML content from TinyMCE
+    const title = req.body.title;
+    const body = req.body.body; // Body now contains the HTML content from TinyMCE
+    let imageUrl = null;
 
-  let imageUrl = null;
+    if (req.file) {
+        const file = req.file;
+        const uploadParams = {
+            Bucket: 'premedtalk-images',
+            Key: `${Date.now().toString()}-${file.originalname}`,
+            Body: file.buffer,
+            ContentType: file.mimetype,
+            ACL: 'public-read'
+        };
 
-  if (req.file) {
-    const file = req.file;
-    const uploadParams = {
-      Bucket: 'premedtalk-images',
-      Key: `${Date.now().toString()}-${file.originalname}`,
-      Body: file.buffer,
-      ContentType: file.mimetype,
-      ACL: 'public-read'
-    };
+        try {
+            const parallelUploads3 = new Upload({
+                client: s3Client,
+                params: uploadParams,
+            });
+            const uploadResult = await parallelUploads3.done();
+            imageUrl = uploadResult.Location;
+        } catch (err) {
+            console.error('Error uploading file to S3:', err);
+            return res.status(500).send('Error uploading file');
+        }
+    }
 
     try {
-      const parallelUploads3 = new Upload({
-        client: s3Client,
-        params: uploadParams,
-      });
-      const uploadResult = await parallelUploads3.done();
-      imageUrl = uploadResult.Location;
-    } catch (err) {
-      console.error('Error uploading file to S3:', err);
-      return res.status(500).send('Error uploading file');
-    }
-  }
+        const newPost = new Post({
+            title: title,
+            body: body,
+            imageUrl: imageUrl,
+        });
+        await newPost.save();
 
-  try {
-    const newPost = new Post({
-      title: title,
-      body: body,
-      imageUrl: imageUrl,
-    });
-    await newPost.save();
-    res.redirect('/dashboard');
-  } catch (err) {
-    console.error('Error creating new post:', err);
-    res.status(500).send('Internal server error');
-  }
+        // Retrieve all subscribed users
+        const subscribers = await EmailUser.find({ currentlySubscribed: true });
+
+        // Prepare the email to be sent
+        const mailOptions = {
+            from: 'cjunhe05@gmail.com',
+            to: subscribers.map(sub => sub.email).join(","),
+            subject: 'New Post Alert: ' + title,
+            html: `<h1>${title}</h1><p>${body}</p><p>Check out the new post <a href="http://premedtalk.com/post/${newPost._id}">here</a>.</p>`
+        };
+
+        // Send email to all subscribers
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.error('Error sending email: ', error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+        res.redirect('/dashboard');
+    } catch (err) {
+        console.error('Error creating new post:', err);
+        res.status(500).send('Internal server error');
+    }
 });
 
 
