@@ -92,25 +92,26 @@ const EmailUser = require('../models/EmailUser');
 
 // POST route to handle email subscriptions
 router.post('/subscribe', async (req, res) => {
-    const { email } = req.body;
+  const { email } = req.body;
 
-    try {
-        // Check if the email is already subscribed
-        const existingUser = await EmailUser.findOne({ email });
-        if (existingUser) {
-            return res.send('This email is already subscribed!');
-        }
+  try {
+      const existingUser = await EmailUser.findOne({ email });
+      if (existingUser) {
+          return res.status(409).json({ message: 'This email is already subscribed!' });
+      }
 
-        // Create a new email user
-        const newUser = new EmailUser({ email });
-        await newUser.save();
+      const newUser = new EmailUser({
+          email,
+      });
+      await newUser.save();
 
-        res.send('Thank you for subscribing!');
-    } catch (error) {
-        console.error('Subscription error:', error);
-        res.status(500).send('Failed to subscribe due to internal server error.');
-    }
+      res.status(201).json({ message: 'Thank you for subscribing!', data: newUser });
+  } catch (error) {
+      console.error('Subscription error:', error);
+      res.status(500).json({ message: 'Failed to subscribe due to internal server error.', error });
+  }
 });
+
 
 
 module.exports = router;
