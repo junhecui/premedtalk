@@ -74,7 +74,7 @@ router.post('/admin', async (req, res) => {
       }
 
       // Create a token for the user
-      const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '100h' });
 
       // Set the token in a HTTP-only cookie
       res.cookie('token', token, { httpOnly: true });
@@ -88,39 +88,48 @@ router.post('/admin', async (req, res) => {
 
 // Route for handling post addition with image upload to AWS S3
 router.post('/add-post', upload.single('postImage'), async (req, res) => {
-  if (!req.file) {
-    console.error('File upload failed.');
-    return res.status(400).send('File upload is required.');
+  const title = req.body.title;
+  const body = req.body.body; // Body now contains the HTML content from TinyMCE
+
+  let imageUrl = null;
+
+  if (req.file) {
+    const file = req.file;
+    const uploadParams = {
+      Bucket: 'premedtalk-images',
+      Key: `${Date.now().toString()}-${file.originalname}`,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+      ACL: 'public-read'
+    };
+
+    try {
+      const parallelUploads3 = new Upload({
+        client: s3Client,
+        params: uploadParams,
+      });
+      const uploadResult = await parallelUploads3.done();
+      imageUrl = uploadResult.Location;
+    } catch (err) {
+      console.error('Error uploading file to S3:', err);
+      return res.status(500).send('Error uploading file');
+    }
   }
 
-  const file = req.file;
-  const uploadParams = {
-    Bucket: 'premedtalk-images',
-    Key: `${Date.now().toString()}-${file.originalname}`,
-    Body: file.buffer,
-    ContentType: file.mimetype,
-    ACL: 'public-read'
-  };
-
   try {
-    const parallelUploads3 = new Upload({
-      client: s3Client,
-      params: uploadParams,
-    });
-    const uploadResult = await parallelUploads3.done();
-    const imageUrl = uploadResult.Location;
     const newPost = new Post({
-      title: req.body.title,
-      body: req.body.body,
+      title: title,
+      body: body,
       imageUrl: imageUrl,
     });
     await newPost.save();
     res.redirect('/dashboard');
   } catch (err) {
-    console.error('Error uploading file to S3:', err);
-    res.status(500).send('Error uploading file');
+    console.error('Error creating new post:', err);
+    res.status(500).send('Internal server error');
   }
 });
+
 
 // Route to display the admin dashboard with a list of posts
 router.get('/dashboard', authMiddleware, async (req, res) => {

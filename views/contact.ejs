@@ -9,16 +9,10 @@
 <body>
     <header>
         <h1>Contact Us</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-        </nav>
     </header>
     
     <main>
+        <!-- Contact Form -->
         <form action="/send-message" method="POST">
             <div class="form-group">
                 <label for="name">Name:</label>
@@ -34,6 +28,21 @@
             </div>
             <button type="submit">Send Message</button>
         </form>
+
+        <!-- Subscription Form -->
+        <section>
+            <h2>Subscribe to Our Newsletter</h2>
+            <form action="/subscribe" method="POST">
+                <div class="form-group">
+                    <label for="subscribeEmail">Your Email:</label>
+                    <input type="email" id="subscribeEmail" name="email" required>
+                </div>
+                <button type="submit">Subscribe</button>
+            </form>
+            <% if (typeof message !== 'undefined') { %>
+                <p id="subscriptionMessage"><%= message %></p>
+            <% } %>
+        </section>
     </main>
 
     <footer>
