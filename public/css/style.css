@@ -1,5 +1,7 @@
+/* Basic font import from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+/* CSS Variables for colors, font sizes, and border radius for reusability and easier maintenance */
 :root {
     --black: #1c1c1c;
     --gray: #7E7E7E;
@@ -12,8 +14,8 @@
     --border-radius: 10px;
 }
 
-
-body{
+/* Body styling sets the base font, color, background, and removes margin */
+body {
     font-family: 'Roboto', sans-serif;
     color: var(--black);
     font-size: var(--font-size-base);
@@ -21,11 +23,15 @@ body{
     margin: 0;
 }
 
+/* Styling links with a default color */
 a { color: var(--black); }
+
+/* Setting specific font sizes for heading levels using CSS variables */
 h1 { font-size: var(--font-size-xl); }
 h2 { font-size: var(--font-size-lg); }
 h3 { font-size: var(--font-size-md); }
 
+/* Uniform styling for various form elements */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -41,6 +47,7 @@ textarea {
     margin-bottom: 1rem;
 }
 
+/* Button styling for general and delete actions */
 .btn {
     background-color: var(--black);
     border: none;
@@ -56,23 +63,25 @@ textarea {
     background-color: var(--red);
 }
 
+/* Image styling to make them responsive */
 img {
     width: 100%;
     height: auto;
 }
 
-/* Layout */
+/* Container for central alignment and padding */
 .container {
     max-width: 982px;
     margin: 0 auto;
     padding: 0 10px;
 }
 
+/* Main content area padding */
 .main {
     padding: 20px 0;
 }
 
-/* Main Image */
+/* Styling for a prominent image with drop-shadow */
 .main-image {
     max-height: 528px;
     filter: drop-shadow(0px 44px 34px rgba(0,0,0,0.25));
@@ -80,7 +89,7 @@ img {
     border-radius: var(--border-radius);
 }
 
-/* Main Header */
+/* Grid layout for header with responsive adjustments */
 .header {
     display: grid;
     align-items: center;
@@ -89,8 +98,7 @@ img {
     padding-top: 10px;
     grid-template-areas:
     "logo button"
-    "menu menu"
-    ;
+    "menu menu";
 }
 
 @media only screen and (min-width: 768px) {
@@ -101,6 +109,7 @@ img {
     }
 }
 
+/* Styling for logo in the header, including hover effects */
 .header__logo {
     grid-area: logo;
     font-weight: 800;
@@ -112,6 +121,7 @@ img {
     text-decoration: underline;
 }
 
+/* Navigation styling within the header */
 .header__nav{
     grid-area: menu;
     display: flex;
@@ -142,7 +152,7 @@ img {
     border: 2px solid var(--black);
 }
 
-/* Header -> Navigation */
+/* More navigation and interactivity styling, including hover and active states */
 .header__nav ul {
     list-style-type: none;
     display: flex;
@@ -164,7 +174,7 @@ img {
     color: var(--gray);
 }
 
-/* Author - HomePage */
+/* Styling for author section */
 .author {
     padding: 10px 0;
     text-align: center;
@@ -176,11 +186,11 @@ img {
 }
 
 .author__body {
-    font-size: var(--font-sie-md);
+    font-size: var(--font-size-md);
     margin: 5px 0 40px 0;
 }
 
-/* Home Article List */
+/* List styling for articles, including responsive layout adjustments */
 .article__heading {
     margin-top: 4rem;
     font-weight: 400;
@@ -200,14 +210,6 @@ img {
     color: var(--gray);
     width: 260px;
     display: inline-block;
-}
-
-.article-ul li a{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-decoration: none;
-    margin: 18px 0px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -243,6 +245,7 @@ img {
     filter: none;
 }
 
+/* Pagination link styling */
 .pagination {
     font-size: 1.3rem;
     color: var(--gray);
@@ -259,13 +262,13 @@ img {
     white-space: pre-wrap;
 }
 
-/* Footer */
+/* Footer styling */
 .footer {
     margin: 4rem;
     text-align: center;
 }
 
-/* Dashboard Admin */
+/* Dashboard admin area styling for post management */
 .admin-title {
     display: flex;
     justify-content: space-between;
@@ -298,7 +301,7 @@ img {
     padding: 10px 0;
   }
 
-/* SearchBar */
+/* SearchBar hidden by default and appears with transition */
 .searchBar {
     visibility: hidden;
     transform: translateY(-100px);
