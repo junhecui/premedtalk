@@ -86,7 +86,7 @@ router.post('/admin', async (req, res) => {
       }
 
       // Create a token for the user
-      const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '100h' });
+      const token = jwt.sign({ userId: user._id }, jwtSecret /*, { expiresIn: '100h' }*/);
 
       // Set the token in a HTTP-only cookie
       res.cookie('token', token, { httpOnly: true });
