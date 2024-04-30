@@ -145,7 +145,7 @@ router.post('/add-post', upload.single('postImage'), async (req, res) => {
               from: process.env.EMAIL_USER,
               to: subscriber.email,
               subject: 'New Post Alert: ' + title,
-              html: `<h1>${title}</h1><p>${body}</p><p>Check out the new post <a href="http://premedtalk.com/post/${newPost._id}">here</a>.</p>`
+              html: `<h1>${title}</h1><p>${body}</p><p>Check out the new post <a href="http://www.premedtalk.com/post/${newPost._id}">here</a>.</p>`
           };
 
           return new Promise((resolve, reject) => {
