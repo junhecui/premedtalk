@@ -20,7 +20,7 @@ body {
     font-family: 'Roboto', sans-serif;
     color: var(--black);
     font-size: var(--font-size-base);
-    background-color: #E4EEF2;
+    background-color: #EBE9F8;
     margin: 0;
 }
 
@@ -72,8 +72,8 @@ img {
 
 /* Container for central alignment and padding */
 .container {
-    max-width: 982px;
-    margin: 0 auto;
+    max-width: 1982px;
+    margin: 0 25px;
     padding: 0 10px;
 }
 
@@ -100,6 +100,8 @@ img {
     grid-template-areas:
     "logo button"
     "menu menu";
+    background-color: #F9F9F9;
+    margin: 0 -35px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -194,6 +196,13 @@ img {
     font-size: var(--font-size-md);
     margin: 5px 0 40px 0;
     text-align: left;
+}
+
+.author__description {
+    font-size: 14;
+    margin: 5px 0 40px 0;
+    text-align: left;
+    margin-right: 50%;
 }
 
 /* List styling for articles, including responsive layout adjustments */
@@ -353,3 +362,25 @@ img {
     padding: 10px;
 }
 
+
+/* Additional styles for the content wrapper */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between; /* This spaces out the child elements across the main axis */
+    align-items: center; /* This centers the items vertically */
+}
+/*
+.author {
+    max-width: 50%; /* Limits the width of the text block 
+}
+*/
+.aligned-image {
+    max-width: 50%; /* Limits the width of the image */
+    height: auto; /* Maintains aspect ratio */
+}
+
+/* Ensure that the images don't stretch beyond their natural size but fill their container */
+img.aligned-image {
+    width: 100%;
+    height: auto;
+}
