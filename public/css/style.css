@@ -1,12 +1,13 @@
 /* Basic font import from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nimbus+Sans:wght@400;700&display=swap");
 
 /* CSS Variables for colors, font sizes, and border radius for reusability and easier maintenance */
 :root {
     --black: #1c1c1c;
     --gray: #7E7E7E;
     --gray-light: #E4E4E4;
-    --red: #b30000;
+    --red: #960018;
     --font-size-base: 1rem;
     --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
     --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.11rem);
@@ -19,7 +20,7 @@ body {
     font-family: 'Roboto', sans-serif;
     color: var(--black);
     font-size: var(--font-size-base);
-    background-color: #FAF5EE;
+    background-color: #E4EEF2;
     margin: 0;
 }
 
@@ -183,11 +184,16 @@ img {
 .author__heading {
     margin-top: 10px;
     margin-bottom: 5px;
+    color: var(--red);
+    text-align: left;
+    font-family: 'Nimbus Sans', sans-serif;
 }
+
 
 .author__body {
     font-size: var(--font-size-md);
     margin: 5px 0 40px 0;
+    text-align: left;
 }
 
 /* List styling for articles, including responsive layout adjustments */
