@@ -1,9 +1,13 @@
-<div class="author">
-    <h1 class="author__heading"> PreMedTalk</h1>
-    <p class="author__body">A PreMed Blog</p>
-</div>
+<div class="content-wrapper">
+    <div class="author">
+        <h1 class="author__heading">PreMedTalk</h1>
+        <p class="author__body">A PreMed Blog</p>
+        <p class="author__description">Welcome to PreMedTalk, a McMaster student-led initiative. Our weekly articles and mailing list cover a range of topics including medicine, medical schools, health, and global healthcare news, all aimed at making medical school information accessible to pre-med and undergraduate students. Explore our blog and discover a new way to experience health and wellness.</p>
+        <p class="author__description">OUR MISSION <br> Welcome to our blog! We are passionate about making pre-med knowledge more accessible and understandable. As first-year Health Sciences students at McMaster University, we are thrilled to share insights, updates, and resources to help aspiring medical professionals on their journey. Get to know us better and see what drives our dedication to healthcare and education!</p>
+    </div>
 
-<img src="/img/main.jpg" alt="panda" width="981" height"528">
+    <img src="/img/placeholder-index-image.avif" alt="intro" class="aligned-image">
+</div>
 
 <section class="articles">
     <h2 class="articles__heading">Latest Posts</h2>
@@ -11,19 +15,15 @@
     <ul class="article-ul">
         <% data.forEach(post => { %>
         <li>
-            <a href="/post/<%= post._id %>"
+            <a href="/post/<%= post._id %>">
                 <span><%= post.title %></span>
                 <span class="article-list__date"><%= post.createdAt.toDateString() %></span>
             </a>
         </li>
         <% }) %>
-
     </ul>
     
     <% if (nextPage !== null) { %>
         <a href="/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
     <% } %>
-
-
-    
 </section>
