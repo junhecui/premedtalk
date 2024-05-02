@@ -1,12 +1,29 @@
 /* Basic font import from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Nimbus+Sans:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 @font-face {
     font-family: 'Futura Medium 65';
     src: url('/fonts/FUTURA65MEDIUM.TTF') format('woff2'), /* Modern Browsers */
          url('/fonts/FUTURA65MEDIUM.TTF') format('woff');   /* Legacy Browsers */
     font-weight: 400; /* Font weight 65 corresponds to the standard font weight 400 */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url(/fonts/Helvetica.ttf) format('woff2'),
+         url(/fonts/Helvetica.ttf) format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Libre-Baskerville';
+    src: url(/fonts/LibreBaskerville-Regular.otf) format('woff2'),
+         url(/fonts/LibreBaskerville-Regular.otf) format('woff');
+    font-weight: 400;
     font-style: normal;
 }
 
@@ -17,10 +34,13 @@
     --gray: #7E7E7E;
     --gray-light: #E4E4E4;
     --red: #960018;
+    --font-size-sm: clamp(0.875rem, 0.5vw + 0.75rem, 1.25rem);
     --font-size-base: 1rem;
     --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
     --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.11rem);
     --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+    --font-size-xxl: clamp(3.05rem, 3vw + 2.25rem, 4.5rem);
+    --font-size-xxxl: clamp(3.81rem, 3.8vw + 2.81rem, 5.63rem);
     --border-radius: 10px;
 }
 
@@ -111,6 +131,7 @@ img {
     "menu menu";
     background-color: #F9F9F9;
     margin: 0 -35px;
+    border-bottom: 1px solid black;
 }
 
 @media only screen and (min-width: 768px) {
@@ -189,23 +210,25 @@ img {
 
 /* Styling for front section */
 .front {
-    padding: 10px 0;
+    padding: 5px 0;
     text-align: center;
 }
 
 .front__heading {
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 5px;
-    color: var(--red);
+    color: #A84E59;
     text-align: left;
-    font-family: 'Nimbus Sans', sans-serif;
+    font-family: 'Helvetica', sans-serif;
 }
 
 
 .front__body {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-lg);
+    color: #1D3671;
     margin: 5px 0 40px 0;
     text-align: left;
+    font-family: 'Libre-Baskerville';
 }
 
 .front__description {
@@ -213,13 +236,19 @@ img {
     margin: 5px 0 40px 0;
     text-align: left;
     margin-right: 50%;
+    font-family: 'Cormorant Garamond';
 }
 
 /* List styling for articles, including responsive layout adjustments */
+.articles {
+    background-color: #C2D1E1;
+    margin: 0;
+}
+
 .article__heading {
     margin-top: 4rem;
     font-weight: 400;
-    font-size: 96px;
+    font-size: var(--font-size-xxxl);
     font-family: 'Futura Medium 65', sans-serif;
 }
 
@@ -270,6 +299,10 @@ img {
 
 .article-ul:hover li:hover {
     filter: none;
+}
+
+.newsletter-subscription {
+    background-color: #C2D1E1;
 }
 
 /* Pagination link styling */
@@ -400,7 +433,8 @@ img.aligned-image {
 .article-grid {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 0;
+    margin: 0;
 }
 
 .article-card {
