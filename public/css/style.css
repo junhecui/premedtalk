@@ -2,6 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Nimbus+Sans:wght@400;700&display=swap");
 
+@font-face {
+    font-family: 'Futura Medium 65';
+    src: url('/fonts/FUTURA65MEDIUM.TTF') format('woff2'), /* Modern Browsers */
+         url('/fonts/FUTURA65MEDIUM.TTF') format('woff');   /* Legacy Browsers */
+    font-weight: 400; /* Font weight 65 corresponds to the standard font weight 400 */
+    font-style: normal;
+}
+
+
 /* CSS Variables for colors, font sizes, and border radius for reusability and easier maintenance */
 :root {
     --black: #1c1c1c;
@@ -118,6 +127,7 @@ img {
     font-weight: 800;
     font-size: 25px;
     text-decoration: none;
+    text-indent: 3%;
 }
 
 .header__logo:hover {
@@ -157,7 +167,7 @@ img {
 
 /* More navigation and interactivity styling, including hover and active states */
 .header__nav ul {
-    list-style-type: none;
+    list-style-type: none; 
     display: flex;
     gap: 1rem;
     font-weight: 600;
@@ -177,13 +187,13 @@ img {
     color: var(--gray);
 }
 
-/* Styling for author section */
-.author {
+/* Styling for front section */
+.front {
     padding: 10px 0;
     text-align: center;
 }
 
-.author__heading {
+.front__heading {
     margin-top: 10px;
     margin-bottom: 5px;
     color: var(--red);
@@ -192,13 +202,13 @@ img {
 }
 
 
-.author__body {
+.front__body {
     font-size: var(--font-size-md);
     margin: 5px 0 40px 0;
     text-align: left;
 }
 
-.author__description {
+.front__description {
     font-size: 14;
     margin: 5px 0 40px 0;
     text-align: left;
@@ -209,6 +219,8 @@ img {
 .article__heading {
     margin-top: 4rem;
     font-weight: 400;
+    font-size: 96px;
+    font-family: 'Futura Medium 65', sans-serif;
 }
 
 .article-ul {
@@ -383,4 +395,124 @@ img {
 img.aligned-image {
     width: 100%;
     height: auto;
+}
+
+.article-grid {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.article-card {
+    width: 30%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.article-thumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Ensures the image covers the area without being stretched */
+}
+
+.article-info {
+    padding: 15px;
+    background: white;
+}
+
+.article-info h3 {
+    margin-top: 0;
+    color: var(--black);
+    font-size: 1.1rem;
+}
+
+.article-info p {
+    font-size: var(--font-size-base);
+    color: var(--gray);
+    margin: 10px 0 0;
+}
+
+.meet-the-authors {
+    text-align: center;
+    padding: 40px 0;
+    background-color: #f8f9fa;
+}
+
+.underline {
+    width: 50px;
+    height: 4px;
+    background-color: #333;
+    margin: 10px auto 20px;
+}
+
+.authors-description {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Container for the Meet the Authors section */
+.meet-the-authors .container {
+    max-width: 800px;
+    margin: 0 auto; /* Center the container */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Flex container to hold author cards */
+.authors-container {
+    display: flex;
+    justify-content: space-around; /* Evenly spaces the author cards */
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    gap: 20px; /* Provides space between the flex items */
+}
+
+/* Individual author cards */
+.author-card {
+    flex: 1 1 45%; /* Flex grow, shrink, and basis - occupies 45% of the container's width */
+    margin: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 300px; /* Limits the maximum width of the cards */
+    box-sizing: border-box; /* Includes padding and border in the width */
+    text-align: left; /* Aligns text to the left inside the card */
+}
+
+.author-card h3, .author-card p {
+    text-align: left; /* Ensure that the text alignment is explicitly set to left for headings and paragraphs */
+}
+
+.author-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 10px auto;
+    display: block; /* Centers the image within the card, you can align it to the left if preferred */
+}
+
+.social-links {
+    text-align: left; /* Aligns social links to the left */
+    padding: 0;
+}
+
+.btn-social {
+    background-color: #007BFF;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
+}
+
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .author-card {
+        flex-basis: 100%; /* Makes each card take full width on small screens */
+    }
 }
