@@ -56,12 +56,12 @@ router.get('/about', (req, res) => {
     });
 });
 
-// Route for rendering the 'contact' page
-router.get('/contact', (req, res) => {
-    res.render('contact', {
-        currentRoute: '/contact'
-    });
-});
+// // Route for rendering the 'contact' page
+// router.get('/contact', (req, res) => {
+//     res.render('contact', {
+//         currentRoute: '/contact'
+//     });
+// });
 
 // Route to handle search functionality
 router.post('/search', async (req, res) => {
