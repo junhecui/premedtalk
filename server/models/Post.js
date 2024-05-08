@@ -27,6 +27,11 @@ const PostSchema = new Schema({
         type: String,
         default: ''  // Default image URL is an empty string if not provided
     }
+    // },
+    // viewCount: {
+    //     type: 'int',
+    //     default: 0
+    // }
 });
 
 // Export the Post model, which will use the PostSchema

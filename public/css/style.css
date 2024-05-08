@@ -27,6 +27,14 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Avenir';
+    src: url(/fonts/avenir_roman_12.otf) format('woff2'),
+         url(/fonts/avenir_roman_12.otf) format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
 
 /* CSS Variables for colors, font sizes, and border radius for reusability and easier maintenance */
 :root {
@@ -34,6 +42,9 @@
     --gray: #7E7E7E;
     --gray-light: #E4E4E4;
     --red: #960018;
+    --font-size-xs: clamp(0.75rem, 0.5vw + 0.5rem, 1rem);  /* Extra Small */
+    --font-size-xxs: clamp(0.625rem, 0.4vw + 0.4rem, 0.875rem);  /* Extra Extra Small */
+    --font-size-xxxs: clamp(0.5rem, 0.3vw + 0.3rem, 0.75rem);  /* Extra Extra Extra Small */
     --font-size-sm: clamp(0.875rem, 0.5vw + 0.75rem, 1.25rem);
     --font-size-base: 1rem;
     --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
@@ -127,8 +138,7 @@ img {
     grid-template-rows: auto;
     padding-top: 10px;
     grid-template-areas:
-    "logo button"
-    "menu menu";
+    "logo menu button";
     background-color: #F9F9F9;
     margin: 0 -35px;
     border-bottom: 1px solid black;
@@ -149,6 +159,7 @@ img {
     font-size: 25px;
     text-decoration: none;
     text-indent: 3%;
+    display:inline-block;
 }
 
 .header__logo:hover {
@@ -160,6 +171,7 @@ img {
     grid-area: menu;
     display: flex;
     justify-content: center;
+    padding: 0.5rem;
 }
 
 .header__button{
@@ -180,10 +192,12 @@ img {
     font-size: var(--font-size-base);
     font-weight: 600;
     color: var(--black);
+    font-family: 'Cormorant Garamond';
 }
 
 .header__button button:hover {
     border: 2px solid var(--black);
+    font-family: 'Cormorant Garamond';
 }
 
 /* More navigation and interactivity styling, including hover and active states */
@@ -193,15 +207,12 @@ img {
     gap: 1rem;
     font-weight: 600;
     padding: 0;
+    font-family: 'Cormorant Garamond';
 }
 
 .header__nav ul a {
     padding: 10px;
     text-decoration: none;
-}
-
-.header__nav ul a:hover {
-    text-decoration: underline;
 }
 
 .header__nav ul a.active {
@@ -211,6 +222,7 @@ img {
 /* Styling for front section */
 .front {
     padding: 5px 0;
+    padding-bottom: 15%;
     text-align: center;
 }
 
@@ -242,11 +254,16 @@ img {
 /* List styling for articles, including responsive layout adjustments */
 .articles {
     background-color: #C2D1E1;
-    margin: 0;
+    margin-left: -35px;
+    margin-right: -35px;
+    padding: 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .article__heading {
     margin-top: 4rem;
+    margin: 35px;
     font-weight: 400;
     font-size: var(--font-size-xxxl);
     font-family: 'Futura Medium 65', sans-serif;
@@ -256,7 +273,7 @@ img {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    font-size: clamp(1.13rem, calc(1.08rem + 0.22vw), 1.25rem);
+    font-size: clamp(1rem, 2vw, 1.25rem);
     display: flex;
     flex-direction: column;
 }
@@ -264,8 +281,8 @@ img {
 .article-list__date {
     font-size: var(--font-size-base);
     color: var(--gray);
-    width: 260px;
-    display: inline-block;
+    width: auto;
+    display: block;
 }
 
 @media only screen and (min-width: 768px) {
@@ -275,7 +292,7 @@ img {
     }
 
     .article-list__date {
-        text-align: right;
+        text-align: left;
     }
 }
 
@@ -301,9 +318,135 @@ img {
     filter: none;
 }
 
-.newsletter-subscription {
-    background-color: #C2D1E1;
+.article-grid {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap onto the next line */
+    justify-content: space-between; /* Maintains space between cards */
+    padding: 0;
+    margin: 35px;
 }
+
+.article-card {
+    width: 30%; /* Adjust width as needed, here it takes full width */
+    display: block; /* Change to block to make the link block-level */
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Inherit text color from parent */
+    background-color: #C2D1E1; /* Match the background to the section color */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .article-grid {
+        flex-direction: column;
+        justify-content: center;
+        margin: 35px 10px; /* Adjust margin to reduce horizontal spacing */
+    }
+
+    .article-card {
+        width: 100%; /* Each card takes full width */
+        padding-top: 56.25%; /* Adjust padding to maintain aspect ratio more suitable for full width */
+    }
+}
+
+.article-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+.article-info {
+    padding: 15px;
+    background-color: transparent; /* Remove background color to match section */
+}
+
+.article-info h3 {
+    margin-top: 0;
+    color: var(--black);
+    font-size: 1.1rem;
+}
+
+.article-info p {
+    font-size: var(--font-size-base);
+    color: var(--gray);
+    margin: 10px 0 0;
+}
+
+.article-line {
+    flex-grow: 1;
+    color: lightgray;
+    margin: 8px 0;
+}
+.article-view-count {
+    font-size: var(--font-size-sm);
+    color: var(--gray);
+}
+
+.newsletter-subscription {
+    text-align: center;
+    padding: 40px 0;
+    background-color: #C2D1E1;
+    font-family: 'Avenir';
+    margin-left: -35px;
+    margin-right: -35px;
+}
+
+.form-group {
+    position: relative;
+    width: 50%; /* Takes up half the width of its container */
+    margin: 0 auto; /* Center the form group */
+}
+
+.email-label {
+    position: absolute;
+    left: 0;
+    top: -20px; /* Position the label above the input */
+    font-size: var(--font-size-xs);
+    color: var(--gray);
+}
+
+input[type="email"] {
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+    border-bottom: 2px solid black; /* Just an underline */
+    background-color: transparent; /* Transparent background */
+    color: var(--black);
+    font-size: var(--font-size-base);
+}
+
+input[type="email"]::placeholder {
+    color: transparent; /* Hide placeholder text when not focused */
+}
+
+input[type="email"]:focus {
+    outline: none;
+    border-bottom-color: var(--red); /* Change underline color on focus */
+}
+
+input[type="email"]:focus::placeholder {
+    color: var(--gray-light); /* Show placeholder text only when input is focused */
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    background-color: var(--black);
+    color: white;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .form-group {
+        width: 100%; /* Full width on smaller screens */
+    }
+}
+
 
 /* Pagination link styling */
 .pagination {
@@ -316,10 +459,6 @@ img {
 
 .pagination:hover {
     color: var(--black);
-}
-
-.article {
-    white-space: pre-wrap;
 }
 
 /* Footer styling */
@@ -428,43 +567,6 @@ img {
 img.aligned-image {
     width: 100%;
     height: auto;
-}
-
-.article-grid {
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-    margin: 0;
-}
-
-.article-card {
-    width: 30%;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-}
-
-.article-thumbnail {
-    width: 100%;
-    height: 200px;
-    object-fit: cover; /* Ensures the image covers the area without being stretched */
-}
-
-.article-info {
-    padding: 15px;
-    background: white;
-}
-
-.article-info h3 {
-    margin-top: 0;
-    color: var(--black);
-    font-size: 1.1rem;
-}
-
-.article-info p {
-    font-size: var(--font-size-base);
-    color: var(--gray);
-    margin: 10px 0 0;
 }
 
 .meet-the-authors {
