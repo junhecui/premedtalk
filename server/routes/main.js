@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
+const EmailUser = require('../models/EmailUser');
 
 // Route to render the home page with pagination
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const locals = {
             title: "PreMedTalk",
@@ -56,6 +57,19 @@ router.get('/about', (req, res) => {
     });
 });
 
+// Route to render the blog page
+router.get('/blog', async (req, res) => {
+    try {
+        const data = await Post.find().sort({ createdAt: -1 });
+        res.render('blog', {
+            data,
+            currentRoute: '/blog'
+        });
+    } catch (error) {
+        console.error(error);
+    }
+});
+
 // // Route for rendering the 'contact' page
 // router.get('/contact', (req, res) => {
 //     res.render('contact', {
@@ -88,8 +102,6 @@ router.post('/search', async (req, res) => {
     }
 });
 
-const EmailUser = require('../models/EmailUser');
-
 // POST route to handle email subscriptions
 router.post('/subscribe', async (req, res) => {
   const { email } = req.body;
@@ -111,7 +123,5 @@ router.post('/subscribe', async (req, res) => {
       res.status(500).json({ message: 'Failed to subscribe due to internal server error.', error });
   }
 });
-
-
 
 module.exports = router;

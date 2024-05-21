@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreMedTalk Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <main class="main-content">
+        <section class="blog-posts">
+            <h1 class="blog-heading">Blog Posts</h1>
+            <div class="post-grid">
+                <% data.forEach(post => { %>
+                    <article class="post-card">
+                        <a href="/post/<%= post._id %>">
+                            <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="post-thumbnail">
+                            <div class="post-info">
+                                <h2 class="post-title"><%= post.title %></h2>
+                                <p class="post-excerpt"><%- post.body.substring(0, 150) %>...</p>
+                            </div>
+                        </a>
+                    </article>
+                <% }) %>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; <%= new Date().getFullYear() %> PreMedTalk. All rights reserved.</p>
+    </footer>
+</body>
+</html>

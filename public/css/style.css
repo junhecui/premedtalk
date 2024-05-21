@@ -1,8 +1,9 @@
-/* Basic font import from Google Fonts */
+/* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Nimbus+Sans:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nimbus+Sans:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
+/* Font Face Definitions */
 @font-face {
     font-family: 'Futura Medium 65';
     src: url('/fonts/FUTURA65MEDIUM.TTF') format('woff2'), /* Modern Browsers */
@@ -13,30 +14,29 @@
 
 @font-face {
     font-family: 'Helvetica';
-    src: url(/fonts/Helvetica.ttf) format('woff2'),
-         url(/fonts/Helvetica.ttf) format('woff');
+    src: url('/fonts/Helvetica.ttf') format('woff2'),
+         url('/fonts/Helvetica.ttf') format('woff');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Libre-Baskerville';
-    src: url(/fonts/LibreBaskerville-Regular.otf) format('woff2'),
-         url(/fonts/LibreBaskerville-Regular.otf) format('woff');
+    src: url('/fonts/LibreBaskerville-Regular.otf') format('woff2'),
+         url('/fonts/LibreBaskerville-Regular.otf') format('woff');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Avenir';
-    src: url(/fonts/avenir_roman_12.otf) format('woff2'),
-         url(/fonts/avenir_roman_12.otf) format('woff');
+    src: url('/fonts/avenir_roman_12.otf') format('woff2'),
+         url('/fonts/avenir_roman_12.otf') format('woff');
     font-weight: 400;
     font-style: normal;
 }
 
-
-/* CSS Variables for colors, font sizes, and border radius for reusability and easier maintenance */
+/* CSS Variables */
 :root {
     --black: #1c1c1c;
     --gray: #7E7E7E;
@@ -55,7 +55,7 @@
     --border-radius: 10px;
 }
 
-/* Body styling sets the base font, color, background, and removes margin */
+/* Global Styles */
 body {
     font-family: 'Roboto', sans-serif;
     color: var(--black);
@@ -64,15 +64,16 @@ body {
     margin: 0;
 }
 
-/* Styling links with a default color */
-a { color: var(--black); }
+a {
+    color: var(--black);
+}
 
-/* Setting specific font sizes for heading levels using CSS variables */
+/* Heading Styles */
 h1 { font-size: var(--font-size-xl); }
 h2 { font-size: var(--font-size-lg); }
 h3 { font-size: var(--font-size-md); }
 
-/* Uniform styling for various form elements */
+/* Form Element Styles */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -88,7 +89,7 @@ textarea {
     margin-bottom: 1rem;
 }
 
-/* Button styling for general and delete actions */
+/* Button Styles */
 .btn {
     background-color: var(--black);
     border: none;
@@ -104,25 +105,24 @@ textarea {
     background-color: var(--red);
 }
 
-/* Image styling to make them responsive */
+/* Image Styles */
 img {
     width: 100%;
     height: auto;
 }
 
-/* Container for central alignment and padding */
+/* Container Styles */
 .container {
     max-width: 1982px;
     margin: 0 25px;
     padding: 0 10px;
 }
 
-/* Main content area padding */
+/* Main Content Styles */
 .main {
     padding: 20px 0;
 }
 
-/* Styling for a prominent image with drop-shadow */
 .main-image {
     max-height: 528px;
     filter: drop-shadow(0px 44px 34px rgba(0,0,0,0.25));
@@ -130,54 +130,65 @@ img {
     border-radius: var(--border-radius);
 }
 
-/* Grid layout for header with responsive adjustments */
+/* Header Styles */
 .header {
-    display: grid;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    padding-top: 10px;
-    grid-template-areas:
-    "logo menu button";
     background-color: #F9F9F9;
-    margin: 0 -35px;
+    margin-left: -35px;
+    margin-right: -35px;
+    padding: 10px 35px;
     border-bottom: 1px solid black;
 }
 
-@media only screen and (min-width: 768px) {
-    .header {
-        grid-template-columns: auto 1fr auto;
-        grid-template-areas: 
-        "logo menu button";
-    }
-}
-
-/* Styling for logo in the header, including hover effects */
 .header__logo {
-    grid-area: logo;
-    font-weight: 800;
-    font-size: 25px;
-    text-decoration: none;
-    text-indent: 3%;
-    display:inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: fit-content;
+    transform: scale(0.6);
+    transform-origin: left;
 }
 
-.header__logo:hover {
-    text-decoration: underline;
+.header__logo img {
+    max-height: 80px;
+    height: 50%;
+    width: 50%;
 }
 
-/* Navigation styling within the header */
-.header__nav{
-    grid-area: menu;
+.header__nav {
+    flex-grow: 1;
     display: flex;
     justify-content: center;
-    padding: 0.5rem;
+    align-items: center;
+    margin-right: 16%;
 }
 
-.header__button{
-    grid-area: button;
+.header__nav ul {
     display: flex;
-    justify-content: end;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 1rem;
+    font-weight: 600;
+    font-family: 'Cormorant Garamond';
+}
+
+.header__nav ul li {
+    list-style: none;
+}
+
+.header__nav ul li a {
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.header__button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .header__button button {
@@ -197,29 +208,9 @@ img {
 
 .header__button button:hover {
     border: 2px solid var(--black);
-    font-family: 'Cormorant Garamond';
 }
 
-/* More navigation and interactivity styling, including hover and active states */
-.header__nav ul {
-    list-style-type: none; 
-    display: flex;
-    gap: 1rem;
-    font-weight: 600;
-    padding: 0;
-    font-family: 'Cormorant Garamond';
-}
-
-.header__nav ul a {
-    padding: 10px;
-    text-decoration: none;
-}
-
-.header__nav ul a.active {
-    color: var(--gray);
-}
-
-/* Styling for front section */
+/* Front Section Styles */
 .front {
     padding: 5px 0;
     padding-bottom: 15%;
@@ -233,7 +224,6 @@ img {
     text-align: left;
     font-family: 'Helvetica', sans-serif;
 }
-
 
 .front__body {
     font-size: var(--font-size-lg);
@@ -251,7 +241,7 @@ img {
     font-family: 'Cormorant Garamond';
 }
 
-/* List styling for articles, including responsive layout adjustments */
+/* Articles Section Styles */
 .articles {
     background-color: #C2D1E1;
     margin-left: -35px;
@@ -285,17 +275,6 @@ img {
     display: block;
 }
 
-@media only screen and (min-width: 768px) {
-    .article-ul li a{
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .article-list__date {
-        text-align: left;
-    }
-}
-
 .article-ul li {
     font-size: 24px;
     cursor: pointer;
@@ -318,6 +297,7 @@ img {
     filter: none;
 }
 
+/* Article Grid Styles */
 .article-grid {
     display: flex;
     flex-wrap: wrap; /* Allows cards to wrap onto the next line */
@@ -338,25 +318,11 @@ img {
     margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-    .article-grid {
-        flex-direction: column;
-        justify-content: center;
-        margin: 35px 10px; /* Adjust margin to reduce horizontal spacing */
-    }
-
-    .article-card {
-        width: 100%; /* Each card takes full width */
-        padding-top: 56.25%; /* Adjust padding to maintain aspect ratio more suitable for full width */
-    }
-}
-
 .article-thumbnail {
     width: 100%;
     height: auto;
     display: block;
 }
-
 
 .article-info {
     padding: 15px;
@@ -380,11 +346,13 @@ img {
     color: lightgray;
     margin: 8px 0;
 }
+
 .article-view-count {
     font-size: var(--font-size-sm);
     color: var(--gray);
 }
 
+/* Newsletter Subscription Section Styles */
 .newsletter-subscription {
     text-align: center;
     padding: 40px 0;
@@ -441,14 +409,7 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .form-group {
-        width: 100%; /* Full width on smaller screens */
-    }
-}
-
-
-/* Pagination link styling */
+/* Pagination Link Styles */
 .pagination {
     font-size: 1.3rem;
     color: var(--gray);
@@ -461,29 +422,29 @@ button[type="submit"] {
     color: var(--black);
 }
 
-/* Footer styling */
+/* Footer Styles */
 .footer {
     margin: 4rem;
     text-align: center;
 }
 
-/* Dashboard admin area styling for post management */
+/* Dashboard Admin Area Styles */
 .admin-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  .admin-posts {
+}
+
+.admin-posts {
     padding: 0;
     margin: 0;
-  }
-  
-  .admin-post-controls form {
+}
+
+.admin-post-controls form {
     display: inline-block;
-  }
-  
-  .admin-post-controls .btn  {
+}
+
+.admin-post-controls .btn  {
     display: inline-block;
     background-color: var(--black);
     color: var(--gray-light);
@@ -492,15 +453,15 @@ button[type="submit"] {
     font-size: .8rem;
     padding: 4px 8px;
     line-height: 2;
-  }
-  
-  .admin-posts li {
+}
+
+.admin-posts li {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-  }
+}
 
-/* SearchBar hidden by default and appears with transition */
+/* Search Bar Styles */
 .searchBar {
     visibility: hidden;
     transform: translateY(-100px);
@@ -529,7 +490,6 @@ button[type="submit"] {
     background-color: #f8f9fa;
 }
 
-
 .searchBar input {
     flex: 1;
     margin: 0 10px;
@@ -546,29 +506,25 @@ button[type="submit"] {
     padding: 10px;
 }
 
-
-/* Additional styles for the content wrapper */
+/* Content Wrapper Styles */
 .content-wrapper {
     display: flex;
     justify-content: space-between; /* This spaces out the child elements across the main axis */
     align-items: center; /* This centers the items vertically */
 }
-/*
-.author {
-    max-width: 50%; /* Limits the width of the text block 
-}
-*/
+
+/* Aligned Image Styles */
 .aligned-image {
     max-width: 50%; /* Limits the width of the image */
     height: auto; /* Maintains aspect ratio */
 }
 
-/* Ensure that the images don't stretch beyond their natural size but fill their container */
 img.aligned-image {
     width: 100%;
     height: auto;
 }
 
+/* Meet the Authors Section Styles */
 .meet-the-authors {
     text-align: center;
     padding: 40px 0;
@@ -589,7 +545,6 @@ img.aligned-image {
     text-align: center;
 }
 
-/* Container for the Meet the Authors section */
 .meet-the-authors .container {
     max-width: 800px;
     margin: 0 auto; /* Center the container */
@@ -597,7 +552,6 @@ img.aligned-image {
     text-align: center;
 }
 
-/* Flex container to hold author cards */
 .authors-container {
     display: flex;
     justify-content: space-around; /* Evenly spaces the author cards */
@@ -605,7 +559,6 @@ img.aligned-image {
     gap: 20px; /* Provides space between the flex items */
 }
 
-/* Individual author cards */
 .author-card {
     flex: 1 1 45%; /* Flex grow, shrink, and basis - occupies 45% of the container's width */
     margin: 10px;
@@ -645,10 +598,71 @@ img.aligned-image {
     margin: 5px;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        margin-left: 0;
+        margin-right: 0;
+    }
 
-/* Responsive adjustments for smaller screens */
-@media (max-width: 600px) {
+    .header__nav {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+        margin-right: 0;
+    }
+
+    .header__button {
+        order: 3;
+        margin-top: 10px;
+    }
+
+    .header__logo {
+        order: 1;
+        margin-bottom: 10px;
+    }
+
+    .form-group {
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .article-grid {
+        flex-direction: column;
+        justify-content: center;
+        margin: 35px 10px; /* Adjust margin to reduce horizontal spacing */
+    }
+
+    .article-card {
+        width: 100%; /* Each card takes full width */
+        padding-top: 56.25%; /* Adjust padding to maintain aspect ratio more suitable for full width */
+    }
+
     .author-card {
         flex-basis: 100%; /* Makes each card take full width on small screens */
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .header {
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas: 
+        "logo menu button";
+    }
+
+    .article-ul li a{
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .article-list__date {
+        text-align: left;
     }
 }
