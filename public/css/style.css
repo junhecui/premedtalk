@@ -162,7 +162,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 16%;
+    margin-right: 3%;
 }
 
 .header__nav ul {
@@ -186,28 +186,12 @@ img {
 }
 
 .header__button {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.header__button button {
-    display: flex;
-    gap: 0.3rem;
-    align-items: center;
-    border: 0;
-    padding: 6px 12px;
-    background: none;
-    border-radius: var(--border-radius);
-    border: 2px solid transparent;
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    color: var(--black);
-    font-family: 'Cormorant Garamond';
-}
-
-.header__button button:hover {
-    border: 2px solid var(--black);
+    float: right;
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
 }
 
 /* Front Section Styles */
@@ -308,7 +292,8 @@ img {
 
 .article-card {
     width: 30%; /* Adjust width as needed, here it takes full width */
-    display: block; /* Change to block to make the link block-level */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack elements vertically */
     text-decoration: none; /* Remove underline from links */
     color: inherit; /* Inherit text color from parent */
     background-color: #C2D1E1; /* Match the background to the section color */
@@ -316,17 +301,22 @@ img {
     border-radius: var(--border-radius);
     overflow: hidden;
     margin-bottom: 20px;
+    border: 1px solid black; /* Thinner black border */
 }
 
 .article-thumbnail {
     width: 100%;
-    height: auto;
+    height: 250px; /* Increased height for the image */
+    object-fit: cover; /* Ensure the image covers the area */
     display: block;
 }
 
 .article-info {
     padding: 15px;
     background-color: transparent; /* Remove background color to match section */
+    flex-grow: 1; /* Allow the text to take up the remaining space */
+    max-height: 100px; /* Cap the height of the text */
+    overflow: hidden; /* Hide overflow content */
 }
 
 .article-info h3 {
@@ -339,6 +329,12 @@ img {
     font-size: var(--font-size-base);
     color: var(--gray);
     margin: 10px 0 0;
+    line-height: 1.5; /* Adjust line height for better readability */
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Cap text to 4 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .article-line {
