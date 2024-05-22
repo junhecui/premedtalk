@@ -83,9 +83,16 @@ router.post('/search', async (req, res) => {
         const locals = {
             title: "Search",
             description: "Simple Blog created with NodeJs, Express & MongoDb."
-        }
+        };
         let searchTerm = req.body.searchTerm;
-        const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "")
+        if (!searchTerm) {
+            return res.render('search', {
+                data: [],
+                locals,
+                currentRoute: '/'
+            });
+        }
+        const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
         const data = await Post.find({
             $or: [
                 { title: { $regex: new RegExp(searchNoSpecialChar, 'i') }},
@@ -101,6 +108,7 @@ router.post('/search', async (req, res) => {
         console.error(error);
     }
 });
+
 
 // POST route to handle email subscriptions
 router.post('/subscribe', async (req, res) => {
