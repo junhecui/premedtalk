@@ -8,27 +8,89 @@
 </head>
 <body>
 
-    <main class="main-content">
-        <section class="blog-posts">
-            <h1 class="blog-heading">Blog Posts</h1>
-            <div class="post-grid">
-                <% data.forEach(post => { %>
-                    <article class="post-card">
-                        <a href="/post/<%= post._id %>">
-                            <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="post-thumbnail">
-                            <div class="post-info">
-                                <h2 class="post-title"><%= post.title %></h2>
-                                <p class="post-excerpt"><%- post.body.substring(0, 150) %>...</p>
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper blog-page">
+        <!-- Blog Posts Section -->
+        <section class="articles">
+            <h2 class="article__heading">Blog Posts</h2>
+            <div class="article-grid" id="article-grid">
+                <% data.slice(0, 9).forEach(post => { %>
+                    <a href="/post/<%= post._id %>" class="article-card">
+                        <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="article-thumbnail">
+                        <div class="article-info">
+                            <h3><%= post.title %></h3>
+                            <p><%- post.body.substring(0, 100) %>...</p>
+                            <div class="article-details">
+                                <span class="article-view-count">Views: <%= post.viewCount %></span>
                             </div>
-                        </a>
-                    </article>
-                <% }) %>
+                        </div>
+                    </a>
+                <% }) %>  
             </div>
+            <% if (data.length > 9) { %>
+                <button id="load-more" class="btn">Load More</button>
+            <% } %>
         </section>
-    </main>
+    </div>
 
     <footer class="footer">
         <p>&copy; <%= new Date().getFullYear() %> PreMedTalk. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadMoreButton = document.getElementById('load-more');
+            let currentItems = 9;
+            const articles = <%- JSON.stringify(data) %>;
+            const articleGrid = document.getElementById('article-grid');
+
+            loadMoreButton.addEventListener('click', () => {
+                const nextItems = articles.slice(currentItems, currentItems + 9);
+
+                nextItems.forEach(post => {
+                    const articleCard = document.createElement('a');
+                    articleCard.href = `/post/${post._id}`;
+                    articleCard.className = 'article-card';
+
+                    const articleThumbnail = document.createElement('img');
+                    articleThumbnail.src = post.imageUrl;
+                    articleThumbnail.alt = post.title;
+                    articleThumbnail.className = 'article-thumbnail';
+
+                    const articleInfo = document.createElement('div');
+                    articleInfo.className = 'article-info';
+
+                    const articleTitle = document.createElement('h3');
+                    articleTitle.textContent = post.title;
+
+                    const articleExcerpt = document.createElement('p');
+                    articleExcerpt.textContent = `${post.body.substring(0, 100)}...`;
+
+                    const articleDetails = document.createElement('div');
+                    articleDetails.className = 'article-details';
+
+                    const articleViewCount = document.createElement('span');
+                    articleViewCount.className = 'article-view-count';
+                    articleViewCount.textContent = `Views: ${post.viewCount}`;
+
+                    articleDetails.appendChild(articleViewCount);
+
+                    articleInfo.appendChild(articleTitle);
+                    articleInfo.appendChild(articleExcerpt);
+                    articleInfo.appendChild(articleDetails);
+
+                    articleCard.appendChild(articleThumbnail);
+                    articleCard.appendChild(articleInfo);
+
+                    articleGrid.appendChild(articleCard);
+                });
+
+                currentItems += 9;
+                if (currentItems >= articles.length) {
+                    loadMoreButton.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
