@@ -162,7 +162,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 3%;
+    margin-right: 8%;
 }
 
 .header__nav ul {
@@ -231,8 +231,6 @@ img {
     margin-left: -35px;
     margin-right: -35px;
     padding: 0;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
 }
 
 .article__heading {
@@ -346,6 +344,18 @@ img {
 .article-view-count {
     font-size: var(--font-size-sm);
     color: var(--gray);
+}
+
+/* Load More Button Styles */
+#load-more {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    background-color: var(--black);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
 }
 
 /* Newsletter Subscription Section Styles */
@@ -660,5 +670,114 @@ img.aligned-image {
 
     .article-list__date {
         text-align: left;
+    }
+}
+
+/* Blog Page Specific Styles */
+.blog-page .articles {
+    background-color: #EBE9F8;
+    padding: 0;
+    text-align: center;
+    margin-left: 2%; /* Shift the container to the right by 5% */
+}
+
+.blog-page .article__heading {
+    margin-top: 4rem;
+    margin: 35px;
+    font-weight: 400;
+    font-size: var(--font-size-xxxl);
+    font-family: 'Futura Medium 65', sans-serif;
+}
+
+.blog-page .article-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0;
+    margin: 35px auto;
+    max-width: 1400px; /* Increased max-width for wider boxes */
+    justify-content: center; /* Center the grid */
+}
+
+.blog-page .article-card {
+    width: 100%; /* Ensure full width for each card */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: row; /* Image and text side by side */
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Inherit text color from parent */
+    background-color: #C2D1E1; /* Match the background to the section color */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid black; /* Thinner black border */
+}
+
+.blog-page .article-thumbnail {
+    width: 40%;
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure the image covers the area */
+    display: block;
+}
+
+.blog-page .article-info {
+    padding: 15px;
+    background-color: transparent; /* Remove background color to match section */
+    flex-grow: 1; /* Allow the text to take up the remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.blog-page .article-info h3 {
+    margin-top: 0;
+    color: var(--black);
+    font-size: 1.1rem;
+}
+
+.blog-page .article-info p {
+    font-size: var(--font-size-base);
+    color: var(--gray);
+    margin: 10px 0 0;
+    line-height: 1.5; /* Adjust line height for better readability */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.blog-page .article-details {
+    margin-top: 10px;
+}
+
+.blog-page .article-view-count {
+    font-size: var(--font-size-sm);
+    color: var(--gray);
+}
+
+/* Load More Button Styles */
+.blog-page #load-more {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    background-color: var(--black);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+/* Responsive Adjustments for Blog Page */
+@media (max-width: 768px) {
+    .blog-page .article-grid {
+        grid-template-columns: 1fr; /* One column on smaller screens */
+        margin: 35px 10px; /* Adjust margin to reduce horizontal spacing */
+    }
+
+    .blog-page .article-card {
+        flex-direction: column; /* Stack image and text vertically */
+        padding-top: 56.25%; /* Adjust padding to maintain aspect ratio more suitable for full width */
+    }
+
+    .blog-page .article-thumbnail {
+        width: 100%; /* Full width image */
+        height: auto; /* Maintain aspect ratio */
     }
 }
