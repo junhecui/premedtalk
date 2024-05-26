@@ -43,14 +43,14 @@
                         <h3><%= post.title %></h3>
                         <p><%- post.body.substring(0, 100) %>...</p>
                         <div class="article-details">
-                            <hr class="article-line">
                             <span class="article-view-count">Views: <%= post.viewCount %></span>
+                            <span class="article-like-count">♥</span>
                         </div>
                     </div>
                 </a>
             <% }) %>            
         </div>
-    </section>
+    </section>    
 
     <!-- Newsletter Subscription Form -->
     <section class="newsletter-subscription">
@@ -59,8 +59,9 @@
             <div class="form-group">
                 <label for="subscribeEmail" class="email-label">Enter your email here *</label>
                 <input type="email" id="subscribeEmail" name="email" placeholder=" " required>
-                <button type="submit">Subscribe</button>
+                <button type="submit">Sign Up</button>
             </div>
+            <p class="submission-message">Thanks for submitting!</p>
         </form>
     </section>
 

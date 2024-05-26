@@ -335,13 +335,14 @@ img {
     text-overflow: ellipsis;
 }
 
-.article-line {
-    flex-grow: 1;
-    color: lightgray;
-    margin: 8px 0;
+.article-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
 }
 
-.article-view-count {
+.article-view-count, .article-like-count {
     font-size: var(--font-size-sm);
     color: var(--gray);
 }
@@ -359,6 +360,7 @@ img {
 }
 
 /* Newsletter Subscription Section Styles */
+/* Newsletter Subscription Section Styles */
 .newsletter-subscription {
     text-align: center;
     padding: 40px 0;
@@ -368,6 +370,12 @@ img {
     margin-right: -35px;
 }
 
+.newsletter-subscription h2 {
+    font-family: 'Futura Medium 65', sans-serif;
+    font-size: var(--font-size-xl);
+    margin-bottom: 20px;
+}
+
 .form-group {
     position: relative;
     width: 50%; /* Takes up half the width of its container */
@@ -375,21 +383,22 @@ img {
 }
 
 .email-label {
-    position: absolute;
-    left: 0;
-    top: -20px; /* Position the label above the input */
-    font-size: var(--font-size-xs);
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: var(--font-size-base);
     color: var(--gray);
 }
 
 input[type="email"] {
     width: 100%;
-    padding: 8px 0;
-    border: none;
-    border-bottom: 2px solid black; /* Just an underline */
-    background-color: transparent; /* Transparent background */
+    padding: 10px;
+    border: 1px solid black;
+    background-color: transparent;
     color: var(--black);
     font-size: var(--font-size-base);
+    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 input[type="email"]::placeholder {
@@ -406,13 +415,20 @@ input[type="email"]:focus::placeholder {
 }
 
 button[type="submit"] {
-    padding: 10px 20px;
+    width: 100%;
+    padding: 10px 0;
     border-radius: var(--border-radius);
-    background-color: var(--black);
+    background-color: #960018;
     color: white;
     border: none;
-    margin-top: 20px;
+    font-size: var(--font-size-base);
     cursor: pointer;
+}
+
+.submission-message {
+    font-size: var(--font-size-sm);
+    color: var(--gray);
+    margin-top: 10px;
 }
 
 /* Pagination Link Styles */
