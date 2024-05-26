@@ -360,7 +360,6 @@ img {
 }
 
 /* Newsletter Subscription Section Styles */
-/* Newsletter Subscription Section Styles */
 .newsletter-subscription {
     text-align: center;
     padding: 40px 0;
@@ -550,7 +549,16 @@ img.aligned-image {
 .meet-the-authors {
     text-align: center;
     padding: 40px 0;
-    background-color: #f8f9fa;
+    background-color: white; /* Changed to white */
+    font-family: 'Avenir';
+    margin-left: -35px;
+    margin-right: -35px;
+}
+
+.meet-the-authors h2 {
+    font-family: 'Futura Medium 65', sans-serif;
+    font-size: var(--font-size-xl);
+    margin-bottom: 10px;
 }
 
 .underline {
@@ -561,53 +569,66 @@ img.aligned-image {
 }
 
 .authors-description {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     color: #666;
-    font-size: 1rem;
-    text-align: center;
-}
-
-.meet-the-authors .container {
-    max-width: 800px;
-    margin: 0 auto; /* Center the container */
-    padding: 20px;
+    font-size: var(--font-size-base);
     text-align: center;
 }
 
 .authors-container {
     display: flex;
-    justify-content: space-around; /* Evenly spaces the author cards */
-    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
-    gap: 20px; /* Provides space between the flex items */
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .author-card {
-    flex: 1 1 45%; /* Flex grow, shrink, and basis - occupies 45% of the container's width */
-    margin: 10px;
-    padding: 20px;
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    max-width: 300px; /* Limits the maximum width of the cards */
-    box-sizing: border-box; /* Includes padding and border in the width */
-    text-align: left; /* Aligns text to the left inside the card */
-}
-
-.author-card h3, .author-card p {
-    text-align: left; /* Ensure that the text alignment is explicitly set to left for headings and paragraphs */
+    padding: 20px;
+    max-width: 400px;
 }
 
 .author-photo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin: 10px auto;
-    display: block; /* Centers the image within the card, you can align it to the left if preferred */
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.author-info {
+    text-align: center;
+}
+
+.author-info h3 {
+    margin-top: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: var(--font-size-lg);
+    color: #1c1c1c;
+}
+
+.author-info p {
+    font-family: 'Roboto', sans-serif;
+    font-size: var(--font-size-base);
+    color: #1c1c1c;
+    line-height: 1.5;
+}
+
+.author-role {
+    font-size: var(--font-size-sm);
+    color: #7E7E7E;
+    margin: 10px 0;
 }
 
 .social-links {
-    text-align: left; /* Aligns social links to the left */
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .btn-social {
@@ -616,8 +637,7 @@ img.aligned-image {
     padding: 5px 10px;
     border-radius: 5px;
     text-decoration: none;
-    display: inline-block;
-    margin: 5px;
+    font-size: var(--font-size-sm);
 }
 
 /* Responsive Adjustments */
