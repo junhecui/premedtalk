@@ -371,7 +371,7 @@ img {
 
 .newsletter-subscription h2 {
     font-family: 'Futura Medium 65', sans-serif;
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     margin-bottom: 20px;
 }
 
@@ -385,8 +385,8 @@ img {
     display: block;
     text-align: left;
     margin-bottom: 5px;
-    font-size: var(--font-size-base);
-    color: var(--gray);
+    font-size: var(--font-size-xs);
+    color: var(--black);
 }
 
 input[type="email"] {
@@ -416,7 +416,6 @@ input[type="email"]:focus::placeholder {
 button[type="submit"] {
     width: 100%;
     padding: 10px 0;
-    border-radius: var(--border-radius);
     background-color: #960018;
     color: white;
     border: none;
@@ -425,8 +424,8 @@ button[type="submit"] {
 }
 
 .submission-message {
-    font-size: var(--font-size-sm);
-    color: var(--gray);
+    font-size: var(--font-size-xs);
+    color: var(--black);
     margin-top: 10px;
 }
 
@@ -565,56 +564,53 @@ img.aligned-image {
     width: 50px;
     height: 4px;
     background-color: #333;
-    margin: 10px auto 20px;
+    margin: 10px auto 30px;
 }
 
 .authors-description {
+    margin: 0 30%;
     margin-bottom: 40px;
     color: #666;
     font-size: var(--font-size-base);
     text-align: center;
+    font-family: 'Cormorant Garamond', sans-serif;
+    line-height: 150%;
 }
 
 .authors-container {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    gap: 20px;
 }
 
 .author-card {
-    flex: 1 1 45%;
+    flex: 1 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: white;
+    background-color: #CFD9E5;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 400px;
+    padding: 10px;
+    max-width: 300px;
+    text-align: left;
 }
 
 .author-photo {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    width: 80%;
+    height: 100%;
+    margin: -10px -10px;
+    margin-bottom: 10px;
 }
 
-.author-info {
-    text-align: center;
-}
-
-.author-info h3 {
+.author-card h3 {
     margin-top: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Futura Medium 65', sans-serif;
     font-size: var(--font-size-lg);
     color: #1c1c1c;
 }
 
-.author-info p {
-    font-family: 'Roboto', sans-serif;
-    font-size: var(--font-size-base);
+.author-card p {
+    font-family: 'Cormorant Garamond', sans-serif;
+    font-size: var(--font-size-xxs);
     color: #1c1c1c;
     line-height: 1.5;
 }
@@ -627,7 +623,7 @@ img.aligned-image {
 
 .social-links {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     gap: 10px;
 }
 
