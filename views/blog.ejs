@@ -19,7 +19,7 @@
                         <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="article-thumbnail">
                         <div class="article-info">
                             <h3><%= post.title %></h3>
-                            <p><%- post.body.substring(0, 100) %>...</p>
+                            <p><%= post.body.substring(0, 100) %>...</p>
                             <div class="article-details">
                                 <span class="article-view-count">Views: <%= post.viewCount %></span>
                             </div>
@@ -37,55 +37,57 @@
         document.addEventListener('DOMContentLoaded', function() {
             const loadMoreButton = document.getElementById('load-more');
             let currentItems = 9;
-            const articles = <%- JSON.stringify(data) %>;
+            const articles = <%= JSON.stringify(data) %>;
             const articleGrid = document.getElementById('article-grid');
 
-            loadMoreButton.addEventListener('click', () => {
-                const nextItems = articles.slice(currentItems, currentItems + 9);
+            if (loadMoreButton) {
+                loadMoreButton.addEventListener('click', () => {
+                    const nextItems = articles.slice(currentItems, currentItems + 9);
 
-                nextItems.forEach(post => {
-                    const articleCard = document.createElement('a');
-                    articleCard.href = `/post/${post._id}`;
-                    articleCard.className = 'article-card';
+                    nextItems.forEach(post => {
+                        const articleCard = document.createElement('a');
+                        articleCard.href = `/post/${post._id}`;
+                        articleCard.className = 'article-card';
 
-                    const articleThumbnail = document.createElement('img');
-                    articleThumbnail.src = post.imageUrl;
-                    articleThumbnail.alt = post.title;
-                    articleThumbnail.className = 'article-thumbnail';
+                        const articleThumbnail = document.createElement('img');
+                        articleThumbnail.src = post.imageUrl;
+                        articleThumbnail.alt = post.title;
+                        articleThumbnail.className = 'article-thumbnail';
 
-                    const articleInfo = document.createElement('div');
-                    articleInfo.className = 'article-info';
+                        const articleInfo = document.createElement('div');
+                        articleInfo.className = 'article-info';
 
-                    const articleTitle = document.createElement('h3');
-                    articleTitle.textContent = post.title;
+                        const articleTitle = document.createElement('h3');
+                        articleTitle.textContent = post.title;
 
-                    const articleExcerpt = document.createElement('p');
-                    articleExcerpt.textContent = `${post.body.substring(0, 100)}...`;
+                        const articleExcerpt = document.createElement('p');
+                        articleExcerpt.textContent = `${post.body.substring(0, 100)}...`;
 
-                    const articleDetails = document.createElement('div');
-                    articleDetails.className = 'article-details';
+                        const articleDetails = document.createElement('div');
+                        articleDetails.className = 'article-details';
 
-                    const articleViewCount = document.createElement('span');
-                    articleViewCount.className = 'article-view-count';
-                    articleViewCount.textContent = `Views: ${post.viewCount}`;
+                        const articleViewCount = document.createElement('span');
+                        articleViewCount.className = 'article-view-count';
+                        articleViewCount.textContent = `Views: ${post.viewCount}`;
 
-                    articleDetails.appendChild(articleViewCount);
+                        articleDetails.appendChild(articleViewCount);
 
-                    articleInfo.appendChild(articleTitle);
-                    articleInfo.appendChild(articleExcerpt);
-                    articleInfo.appendChild(articleDetails);
+                        articleInfo.appendChild(articleTitle);
+                        articleInfo.appendChild(articleExcerpt);
+                        articleInfo.appendChild(articleDetails);
 
-                    articleCard.appendChild(articleThumbnail);
-                    articleCard.appendChild(articleInfo);
+                        articleCard.appendChild(articleThumbnail);
+                        articleCard.appendChild(articleInfo);
 
-                    articleGrid.appendChild(articleCard);
+                        articleGrid.appendChild(articleCard);
+                    });
+
+                    currentItems += 9;
+                    if (currentItems >= articles.length) {
+                        loadMoreButton.style.display = 'none';
+                    }
                 });
-
-                currentItems += 9;
-                if (currentItems >= articles.length) {
-                    loadMoreButton.style.display = 'none';
-                }
-            });
+            }
         });
     </script>
 </body>
