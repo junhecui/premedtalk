@@ -4,108 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PreMedTalk</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/front.css">
+    <link rel="stylesheet" href="/css/articles.css">
+    <link rel="stylesheet" href="/css/newsletter.css">
+    <link rel="stylesheet" href="/css/authors.css">
+    <link rel="stylesheet" href="/css/footer.css">
 </head>
 <body>
-    <!-- Main Content Wrapper -->
-    <div class="content-wrapper">
-        <!-- Introduction Section -->
+<div class="page-container">
+    <section class="front-section">
         <div class="front">
-            <h1 class="front__heading">PreMedTalk</h1>
-            <p class="front__body">A PreMed Blog</p>
-            <p class="front__description">
-                Welcome to PreMedTalk, a McMaster student-led initiative. Our weekly articles and mailing list cover a
-                range of topics including medicine, medical schools, health, and global healthcare news, all aimed at
-                making medical school information accessible to pre-med and undergraduate students. Explore our blog
-                and discover a new way to experience health and wellness.
-            </p>
-            <p class="front__description">
-                OUR MISSION<br>
-                At PreMedTalk, we are dedicated to demystifying the journey to becoming a medical professional. As
-                aspiring healthcare providers ourselves, we understand the challenges and complexities faced by pre-med
-                students. Our mission is to provide accessible, reliable, and comprehensive information that empowers
-                future medical students.
-            </p>
+            <div class="front__text">
+                <h1 class="front__heading">PreMedTalk</h1>
+                <p class="front__body">A PreMed Blog</p>
+                <p class="front__description">
+                    Welcome to PreMedTalk, a McMaster student-led initiative. Our weekly articles and mailing list cover a
+                    range of topics including medicine, medical schools, health, and global healthcare news, all aimed at
+                    making medical school information accessible to pre-med and undergraduate students. Explore our blog
+                    and discover a new way to experience health and wellness.
+                </p>
+                <p class="front__description">
+                    OUR MISSION<br>
+                    At PreMedTalk, we are dedicated to demystifying the journey to becoming a medical professional. As
+                    aspiring healthcare providers ourselves, we understand the challenges and complexities faced by pre-med
+                    students. Our mission is to provide accessible, reliable, and comprehensive information that empowers
+                    future medical students.
+                </p>
+            </div>
+            <div class="front__image-container">
+                <img src="/img/placeholder-index-image.avif" alt="intro" class="main-image">
+            </div>
         </div>
+    </section>
+</div>
 
-        <!-- Introductory Image -->
-        <img src="/img/placeholder-index-image.avif" alt="intro" class="aligned-image">
-    </div>
+        <section class="articles">
+            <h2 class="article__heading">Latest Articles</h2>
+            <div class="article-grid">
+                <% data.slice(0, 3).forEach(post => { %>
+                    <a href="/post/<%= post._id %>" class="article-card">
+                        <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="article-thumbnail">
+                        <div class="article-info">
+                            <h3><%= post.title %></h3>
+                            <p><%- post.body.substring(0, 100) %>...</p>
+                            <div class="article-details">
+                                <span class="article-view-count">Views: <%= post.viewCount %></span>
+                                <span class="article-like-count">♥</span>
+                            </div>
+                        </div>
+                    </a>
+                <% }) %>            
+            </div>
+        </section>    
 
-    <!-- Articles Section -->
-    <section class="articles">
-        <h2 class="article__heading">Latest Articles</h2>
-        <div class="article-grid">
-            <% data.slice(0, 3).forEach(post => { %>
-                <a href="/post/<%= post._id %>" class="article-card">
-                    <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="article-thumbnail">
-                    <div class="article-info">
-                        <h3><%= post.title %></h3>
-                        <p><%- post.body.substring(0, 100) %>...</p>
-                        <div class="article-details">
-                            <span class="article-view-count">Views: <%= post.viewCount %></span>
-                            <span class="article-like-count">♥</span>
+        <!-- Newsletter Subscription Form -->
+        <section class="newsletter-subscription">
+            <h2>Subscribe to Our Newsletter!</h2>
+            <form action="/subscribe" method="POST">
+                <div class="form-group">
+                    <label for="subscribeEmail" class="email-label">Enter your email here *</label>
+                    <input type="email" id="subscribeEmail" name="email" placeholder=" " required>
+                    <button type="submit">Sign Up</button>
+                </div>
+                <p class="submission-message">Thanks for submitting!</p>
+            </form>
+        </section>
+
+        <!-- Meet the Authors Section -->
+        <section class="authors-section">
+            <div class="container">
+                <h2>Meet the Authors</h2>
+                <div class="underline"></div>
+                <p class="authors-description">
+                    Welcome to our blog! We are passionate about making pre-med knowledge more accessible and understandable.
+                    As first-year Health Sciences students at McMaster University, we are thrilled to share insights, updates,
+                    and resources to help aspiring medical professionals on their journey. Get to know us better and see what
+                    drives our dedication to healthcare and education!
+                </p>
+                <div class="authors-container">
+                    <!-- Author Card -->
+                    <div class="author-card">
+                        <img src="/img/main.jpg" alt="Ilias" class="author-photo">
+                        <h3>Ilias Farooq</h3>
+                        <p>Ilias is a first-year Health Sciences student at McMaster University with a focus on family
+                            medicine. He is involved in clinical work at Credit Valley Hospital and other clinics and enjoys
+                            the dynamics of working with a diverse patient base. He is passionate about advancing his medical
+                            knowledge and sharing it with others to improve healthcare accessibility.</p>
+                        <div class="social-links">
+                            <a href="#" class="btn-social">Twitter</a>
+                            <a href="#" class="btn-social">LinkedIn</a>
                         </div>
                     </div>
-                </a>
-            <% }) %>            
-        </div>
-    </section>    
 
-    <!-- Newsletter Subscription Form -->
-    <section class="newsletter-subscription">
-        <h2>Subscribe to Our Newsletter!</h2>
-        <form action="/subscribe" method="POST">
-            <div class="form-group">
-                <label for="subscribeEmail" class="email-label">Enter your email here *</label>
-                <input type="email" id="subscribeEmail" name="email" placeholder=" " required>
-                <button type="submit">Sign Up</button>
-            </div>
-            <p class="submission-message">Thanks for submitting!</p>
-        </form>
-    </section>
-
-    <!-- Meet the Authors Section -->
-    <section class="meet-the-authors">
-        <div class="container">
-            <h2>Meet the Authors</h2>
-            <div class="underline"></div>
-            <p class="authors-description">
-                Welcome to our blog! We are passionate about making pre-med knowledge more accessible and understandable.
-                As first-year Health Sciences students at McMaster University, we are thrilled to share insights, updates,
-                and resources to help aspiring medical professionals on their journey. Get to know us better and see what
-                drives our dedication to healthcare and education!
-            </p>
-            <div class="authors-container">
-                <!-- Author Card -->
-                <div class="author-card">
-                    <img src="/img/main.jpg" alt="Ilias" class="author-photo">
-                    <h3>Ilias Farooq</h3>
-                    <p>Ilias is a first-year Health Sciences student at McMaster University with a focus on family
-                        medicine. He is involved in clinical work at Credit Valley Hospital and other clinics and enjoys
-                        the dynamics of working with a diverse patient base. He is passionate about advancing his medical
-                        knowledge and sharing it with others to improve healthcare accessibility.</p>
-                    <div class="social-links">
-                        <a href="#" class="btn-social">Twitter</a>
-                        <a href="#" class="btn-social">LinkedIn</a>
-                    </div>
-                </div>
-
-                <!-- Author Card -->
-                <div class="author-card">
-                    <img src="/img/main.jpg" alt="Niko" class="author-photo">
-                    <h3>Niko Stratopoulos</h3>
-                    <p>Niko, a fellow first-year at McMaster, combines his roles as a lifeguard and a budding family
-                        medicine enthusiast with a deep fascination for human anatomy. His commitment to healthcare is
-                        matched by his dedication to community service and his proactive approach to learning and sharing
-                        medical knowledge.</p>
-                    <div class="social-links">
-                        <a href="#" class="btn-social">Twitter</a>
-                        <a href="#" class="btn-social">LinkedIn</a>
+                    <!-- Author Card -->
+                    <div class="author-card">
+                        <img src="/img/main.jpg" alt="Niko" class="author-photo">
+                        <h3>Niko Stratopoulos</h3>
+                        <p>Niko, a fellow first-year at McMaster, combines his roles as a lifeguard and a budding family
+                            medicine enthusiast with a deep fascination for human anatomy. His commitment to healthcare is
+                            matched by his dedication to community service and his proactive approach to learning and sharing
+                            medical knowledge.</p>
+                        <div class="social-links">
+                            <a href="#" class="btn-social">Twitter</a>
+                            <a href="#" class="btn-social">LinkedIn</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </body>
 </html>

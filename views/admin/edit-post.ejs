@@ -12,14 +12,15 @@
 </div>
 
 <!-- Form to edit the current post -->
-<form action="/edit-post/<%= data._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+<form action="/edit-post/<%= data._id %>?_method=PUT" method="POST" enctype="multipart/form-data" onsubmit="submitEditorContent(event)">
     <!-- Input field for the post's title -->
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>" id="title" required>
 
-    <!-- Textarea for editing the post's content -->
+    <!-- Div for editing the post's content -->
     <label for="body"><b>Content</b></label>
-    <textarea name="body" cols="50" rows="10" id="body" required><%= data.body %></textarea>
+    <div id="editor"><%= data.body %></div>
+    <textarea id="postBody" name="body" hidden required></textarea>
 
     <!-- File input for uploading a new image for the post -->
     <label for="postImage"><b>Upload New Image (optional)</b></label>
@@ -28,3 +29,34 @@
     <!-- Submit button for updating the post -->
     <input type="submit" value="Update" class="btn">
 </form>
+
+<script type="module">
+  import { Editor } from '@tiptap/core'
+  import StarterKit from '@tiptap/starter-kit'
+  import TextAlign from '@tiptap/extension-text-align'
+  import Image from '@tiptap/extension-image'
+  import Link from '@tiptap/extension-link'
+  import List from '@tiptap/extension-list'
+
+  const editor = new Editor({
+    element: document.querySelector('#editor'),
+    extensions: [
+      StarterKit,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      Image,
+      Link,
+      List
+    ],
+    content: document.querySelector('#editor').innerHTML,
+  })
+
+  // Function to handle form submission
+  function submitEditorContent(event) {
+    event.preventDefault();
+    const postBody = document.getElementById('postBody');
+    postBody.value = editor.getHTML();
+    event.target.submit();
+  }
+</script>

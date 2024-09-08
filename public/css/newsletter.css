@@ -1,0 +1,91 @@
+/* Newsletter Subscription Section Styles */
+.newsletter-subscription {
+    width: 100vw; /* Stretches across the entire viewport width */
+    text-align: center;
+    padding: 40px 0;
+    background-color: #C2D1E1;
+    font-family: 'Avenir';
+}
+
+section {
+    margin: 0;
+    padding: 0;
+}
+
+.newsletter-subscription > * {
+    margin: 0;
+    padding: 0;
+}
+
+.newsletter-subscription h2 {
+    font-family: 'Futura Medium 65', sans-serif;
+    font-size: var(--font-size-lg);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    position: relative;
+    width: 50%; /* Takes up half the width of its container */
+    margin: 0 auto; /* Center the form group */
+}
+
+.email-label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: var(--font-size-xs);
+    color: var(--black);
+}
+
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: transparent;
+    color: var(--black);
+    font-size: var(--font-size-base);
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+input[type="email"]::placeholder {
+    color: transparent; /* Hide placeholder text when not focused */
+}
+
+input[type="email"]:focus {
+    outline: none;
+    border-bottom-color: var(--red); /* Change underline color on focus */
+}
+
+input[type="email"]:focus::placeholder {
+    color: var(--gray-light); /* Show placeholder text only when input is focused */
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #960018;
+    color: white;
+    border: none;
+    font-size: var(--font-size-base);
+    cursor: pointer;
+}
+
+.submission-message {
+    font-size: var(--font-size-xs);
+    color: var(--black);
+    margin-top: 10px;
+}
+
+/* Pagination Link Styles */
+.pagination {
+    font-size: 1.3rem;
+    color: var(--gray);
+    text-decoration: none;
+    margin-top: 40px;
+    display: inline-block;
+}
+
+.pagination:hover {
+    color: var(--black);
+}
