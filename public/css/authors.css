@@ -1,0 +1,91 @@
+
+/* Meet the Authors Section Styles */
+.authors-section {
+    width: 100vw; /* Stretches across the entire viewport width */
+    text-align: center;
+    padding: 40px 0;
+    background-color: white;
+    font-family: 'Avenir';
+}
+
+.meet-the-authors h2 {
+    font-family: 'Futura Medium 65', sans-serif;
+    font-size: var(--font-size-xl);
+    margin-bottom: 10px;
+}
+
+.underline {
+    width: 50px;
+    height: 4px;
+    background-color: #333;
+    margin: 10px auto 30px;
+}
+
+.authors-description {
+    margin: 0 30%;
+    margin-bottom: 40px;
+    color: #666;
+    font-size: var(--font-size-base);
+    text-align: center;
+    font-family: 'Cormorant Garamond', sans-serif;
+    line-height: 150%;
+}
+
+.authors-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.author-card {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #CFD9E5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    max-width: 300px;
+    text-align: left;
+}
+
+.author-photo {
+    width: 80%;
+    height: 100%;
+    margin: -10px -10px;
+    margin-bottom: 10px;
+}
+
+.author-card h3 {
+    margin-top: 0;
+    font-family: 'Futura Medium 65', sans-serif;
+    font-size: var(--font-size-lg);
+    color: #1c1c1c;
+}
+
+.author-card p {
+    font-family: 'Cormorant Garamond', sans-serif;
+    font-size: var(--font-size-xxs);
+    color: #1c1c1c;
+    line-height: 1.5;
+}
+
+.author-role {
+    font-size: var(--font-size-sm);
+    color: #7E7E7E;
+    margin: 10px 0;
+}
+
+.social-links {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
+
+.btn-social {
+    background-color: #007BFF;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+}

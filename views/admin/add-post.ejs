@@ -1,42 +1,49 @@
-<!-- Navigation link to go back to the dashboard -->
-<a href="/dashboard" aria-label="Back to dashboard">&larr; Back</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreMedTalk</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Include TipTap scripts from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tiptap/core@2.0.0-beta.121/dist/tiptap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tiptap/starter-kit@2.0.0-beta.121/dist/starter-kit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tiptap/extension-text-align@2.0.0-beta.121/dist/text-align.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tiptap/extension-image@2.0.0-beta.121/dist/image.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tiptap/extension-link@2.0.0-beta.121/dist/link.min.js"></script>
+</head>
+<body>
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Navigation link to go back to the dashboard -->
+        <a href="/dashboard" aria-label="Back to dashboard">&larr; Back</a>
 
-<!-- Title section for the form -->
-<div class="admin-title">
-    <h2>Add New Post</h2>
-</div>
+        <!-- Title section for the form -->
+        <div class="admin-title">
+            <h2>Add New Post</h2>
+        </div>
 
-<!-- Form for adding a new post. The method POST ensures data is sent as a request body -->
-<form action="/add-post" method="POST" enctype="multipart/form-data">
-    <!-- Label and input for the post's title. 'for' attribute in label must match the 'id' attribute in input -->
-    <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Enter Post Title" id="title" name="title" required>
+        <!-- Form for adding a new post. The method POST ensures data is sent as a request body -->
+        <form action="/add-post" method="POST" enctype="multipart/form-data">
+            <!-- Label and input for the post's title. 'for' attribute in label must match the 'id' attribute in input -->
+            <label for="title"><b>Title</b></label>
+            <input type="text" placeholder="Enter Post Title" id="title" name="title" required>
 
-    <!-- Label and textarea for the post's content/body. This textarea will be enhanced by TinyMCE. -->
-    <label for="postBody"><b>Content</b></label>
-    <textarea id="postBody" name="body" cols="50" rows="20" placeholder="Write your post content here..." required></textarea>
+            <!-- Label and div for the post's content/body. This div will be enhanced by TipTap. -->
+            <label for="postBody"><b>Content</b></label>
+            <div id="editor"></div>
+            <textarea id="postBody" name="body" hidden required></textarea>
 
-    <!-- Label and input for file upload. Only accepts image files -->
-    <label for="postImage"><b>Upload Image</b></label>
-    <input type="file" id="postImage" name="postImage" accept="image/*">
+            <!-- Label and input for file upload. Only accepts image files -->
+            <label for="postImage"><b>Upload Image</b></label>
+            <input type="file" id="postImage" name="postImage" accept="image/*">
 
-    <!-- Submit button for the form -->
-    <input type="submit" value="Add" class="btn">
-</form>
+            <!-- Submit button for the form -->
+            <input type="submit" value="Add" class="btn">
+        </form>
+    </div>
 
-<!-- TinyMCE Script and Initialization -->
-<script src="https://cdn.tiny.cloud/1/6xohp6unktjberg5kdv3i1zys8mr7va14ki5ko8lgirpr1jv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-  tinymce.init({
-      selector: '#postBody',
-      readonly: false,
-      plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-      toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table',
-      toolbar_mode: 'floating',
-      setup: function (editor) {
-          editor.on('change', function () {
-              editor.save(); // This function integrates the TinyMCE content back into the form element for submission
-          });
-      }
-  });
-</script>
+    <!-- Include the editor script -->
+    <script type="module" src="/js/editor.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+.articles {
+    background-color: #C2D1E1;
+    width: 100vw; /* Stretches across the entire viewport width */
+    padding: 0;
+    margin-bottom: -2.5%;
+}
+
+.article__heading {
+    margin-top: 4rem;
+    margin: 35px;
+    font-weight: 400;
+    font-size: var(--font-size-xxxl);
+    font-family: 'Futura Medium 65', sans-serif;
+}
+
+.article-ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.article-list__date {
+    font-size: var(--font-size-base);
+    color: var(--gray);
+    width: auto;
+    display: block;
+}
+
+.article-ul li {
+    font-size: 24px;
+    cursor: pointer;
+    transition: filter 0.1s;
+}
+
+.article-ul li:not(:last-child) {
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.article-ul li:hover {
+    filter: none;
+}
+
+.article-ul:hover li {
+    filter: blur(3px);
+}
+
+.article-ul:hover li:hover {
+    filter: none;
+}
+
+/* Article Grid Styles */
+.article-grid {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap onto the next line */
+    justify-content: space-between; /* Maintains space between cards */
+    padding: 0;
+    margin: 35px;
+}
+
+.article-card {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background-color: #C2D1E1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid black;
+}
+
+.article-thumbnail {
+    width: 100%;
+    height: 250px; /* Increased height for the image */
+    object-fit: cover; /* Ensure the image covers the area */
+    display: block;
+}
+
+.article-info {
+    padding: 15px;
+    background-color: transparent; /* Remove background color to match section */
+    flex-grow: 1; /* Allow the text to take up the remaining space */
+    max-height: 100px; /* Cap the height of the text */
+    overflow: hidden; /* Hide overflow content */
+}
+
+.article-info h3 {
+    margin-top: 0;
+    color: var(--black);
+    font-size: 1.1rem;
+}
+
+.article-info p {
+    font-size: var(--font-size-base);
+    color: var(--gray);
+    margin: 10px 0 0;
+    line-height: 1.5; /* Adjust line height for better readability */
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Cap text to 4 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.article-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.article-view-count, .article-like-count {
+    font-size: var(--font-size-sm);
+    color: var(--gray);
+}
+
+/* Load More Button Styles */
+#load-more {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    background-color: var(--black);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
