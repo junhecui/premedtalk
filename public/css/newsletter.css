@@ -1,3 +1,7 @@
+.newsletter-subscription-wrapper {
+    animation: fadeInFromTop 1.5s ease-in-out 1.2s both;
+}
+
 .newsletter-subscription {
     width: 100%;
     text-align: center;
@@ -6,6 +10,12 @@
     font-family: 'Avenir';
     border: 2px solid black;
     margin-top: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.newsletter-subscription:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 section {
