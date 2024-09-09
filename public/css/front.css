@@ -1,8 +1,13 @@
+.container {
+    max-width: 3600px;
+}
+
 .front {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
+    margin: 2rem;
 }
 
 .front__text {
