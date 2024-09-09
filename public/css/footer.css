@@ -1,0 +1,29 @@
+.footer {
+    background-color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-family: 'Avenir';
+    border-top: 1px solid var(--gray-light);
+    margin-top: 40px;
+    border: 2px solid black;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer p {
+    margin: 0;
+    font-size: var(--font-size-xs);
+    color: var (--gray);
+}
+
+/* Responsive Adjustments for Footer */
+@media (max-width: 768px) {
+    .footer-container {
+        padding: 0 20px;
+    }
+}

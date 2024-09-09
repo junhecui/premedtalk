@@ -1,8 +1,10 @@
 .articles {
     background-color: #C2D1E1;
-    width: 100vw; /* Stretches across the entire viewport width */
-    padding: 0;
-    margin-bottom: -2.5%;
+    width: 100%;
+    margin-top: 100px;
+    padding: 40px 0;
+    box-sizing: border-box;
+    border: 2px solid black;
 }
 
 .article__heading {

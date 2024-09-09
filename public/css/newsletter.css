@@ -1,10 +1,11 @@
-/* Newsletter Subscription Section Styles */
 .newsletter-subscription {
-    width: 100vw; /* Stretches across the entire viewport width */
+    width: 100%;
     text-align: center;
     padding: 40px 0;
     background-color: #C2D1E1;
     font-family: 'Avenir';
+    border: 2px solid black;
+    margin-top: 25px;
 }
 
 section {
