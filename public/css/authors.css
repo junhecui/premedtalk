@@ -93,7 +93,7 @@
 
 .social-links {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     gap: 10px;
 }
 
@@ -114,5 +114,21 @@
 
     .author-card h3 {
         font-size: var(--font-size-md)
+    }
+}
+
+@media (max-width: 768px) {
+    .authors-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .author-card {
+        max-width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .author-card h3 {
+        font-size: var(--font-size-md);
     }
 }
