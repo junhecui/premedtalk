@@ -1,3 +1,7 @@
+.footer-wrapper {
+    animation: fadeInFromTop 1.5s ease-in-out 2.2s both;
+}
+
 .footer {
     background-color: white;
     padding: 20px 0;
@@ -5,7 +9,14 @@
     font-family: 'Avenir';
     border-top: 1px solid var(--gray-light);
     margin-top: 40px;
+    margin: 2rem;
     border: 2px solid black;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .footer-container {
@@ -21,7 +32,6 @@
     color: var (--gray);
 }
 
-/* Responsive Adjustments for Footer */
 @media (max-width: 768px) {
     .footer-container {
         padding: 0 20px;

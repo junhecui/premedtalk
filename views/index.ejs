@@ -39,7 +39,7 @@
         </div>
     </section>
 </div>
-
+<div class="articles-wrapper">
         <section class="articles">
             <h2 class="article__heading">Latest Articles</h2>
             <div class="article-grid">
@@ -57,9 +57,10 @@
                     </a>
                 <% }) %>            
             </div>
+        </div>
         </section>    
 
-        <!-- Newsletter Subscription Form -->
+        <div class="newsletter-subscription-wrapper">
         <section class="newsletter-subscription">
             <h2>Subscribe to Our Newsletter!</h2>
             <form action="/subscribe" method="POST">
@@ -71,8 +72,9 @@
                 <p class="submission-message">Thanks for submitting!</p>
             </form>
         </section>
+        </div>
 
-        <!-- Meet the Authors Section -->
+        <div class="authors-section-wrapper">
         <section class="authors-section">
             <div class="container">
                 <h2>Meet the Authors</h2>
@@ -84,6 +86,7 @@
                     drives our dedication to healthcare and education!
                 </p>
                 <div class="authors-container">
+                    <div class="author-card-wrapper">
                     <div class="author-card">
                         <img src="/img/ilias.jpg" alt="Ilias" class="author-photo">
                         <h3>Ilias Farooq</h3>
@@ -97,7 +100,8 @@
                             </a>
                         </div>
                     </div>
-
+                </div>
+                <div class="author-card-wrapper">
                     <div class="author-card">
                         <img src="/img/niko.jpg" alt="Niko" class="author-photo">
                         <h3>Niko Stratopoulos</h3>
@@ -112,8 +116,10 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
         </section>
+    </div>
     </div>
 </body>
 </html>
