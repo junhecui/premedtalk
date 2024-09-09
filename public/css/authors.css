@@ -44,20 +44,34 @@
     background-color: #CFD9E5;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    max-width: 300px;
+    max-width: 500px;
     text-align: left;
     border: 2px solid black;
 }
 
 .author-photo {
-    width: 80%;
-    height: 100%;
-    margin: -10px auto -10px;
+    width: 100%;
+    height: 300px;
     margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.author-card {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #CFD9E5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    max-width: 300px;
+    text-align: left;
+    border: 2px solid black;
 }
 
 .author-card h3 {
     margin-top: 0;
+    margin-bottom: 0;
     font-family: 'Futura Medium 65', sans-serif;
     font-size: var(--font-size-lg);
     color: #1c1c1c;
@@ -65,9 +79,10 @@
 
 .author-card p {
     font-family: 'Cormorant Garamond', sans-serif;
-    font-size: var(--font-size-xxs);
+    font-size: var(--font-size-xs);
     color: #1c1c1c;
     line-height: 1.5;
+    flex-grow: 1;
 }
 
 .author-role {
@@ -89,4 +104,15 @@
     border-radius: 5px;
     text-decoration: none;
     font-size: var(--font-size-sm);
+}
+
+@media (max-width: 1440px) {
+    .authors-description {
+        margin: 0 10%;
+        margin-bottom: 20px;
+    }
+
+    .author-card h3 {
+        font-size: var(--font-size-md)
+    }
 }
