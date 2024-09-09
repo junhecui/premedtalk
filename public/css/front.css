@@ -1,7 +1,7 @@
 .front {
     display: flex;
-    justify-content: space-between; /* Align text to the left and image to the right */
-    align-items: center; /* Vertically aligns the text and image */
+    justify-content: space-between;
+    align-items: center;
     padding: 20px 0;
 }
 
@@ -38,9 +38,9 @@
 }
 
 .front__image-container {
-    flex: 0 0 30%; /* The image takes up 30% of the container width */
+    flex: 0 0 30%;
     display: flex;
-    justify-content: flex-end; /* Aligns the image to the right */
+    justify-content: flex-end;
 }
 
 .main-image {
@@ -48,4 +48,31 @@
     max-height: 500px;
     object-fit: contain;
     border-radius: var(--border-radius);
+}
+
+@media (max-width: 768px) {
+    .front {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .front__text {
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .front__heading, 
+    .front__body, 
+    .front__description {
+        text-align: center;
+    }
+
+    .front__description {
+        margin-right: 0;
+    }
+
+    .front__image-container {
+        display: none;
+    }
 }
