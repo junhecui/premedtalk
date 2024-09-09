@@ -89,17 +89,19 @@ body {
         justify-content: flex-start;
     }
 
-    /* Hide the search bar */
+    .header__logo img {
+        margin-left: 15%;
+        max-height: 60px;
+    }
+
     .header__button {
         display: none;
     }
 
-    /* Align nav items to the left */
     .header__nav {
-        justify-content: flex-start;
+        justify-content: right;
     }
 
-    /* Reduce padding for smaller screens */
     .header__nav ul li a {
         padding: 5px;
     }

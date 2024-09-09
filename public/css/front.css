@@ -75,6 +75,7 @@
     .front__body, 
     .front__description {
         text-align: center;
+        margin-bottom: 20px;
     }
 
     .front__description {
