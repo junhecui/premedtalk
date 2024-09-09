@@ -135,10 +135,18 @@
 
     .author-card {
         max-width: 90%;
-        margin-bottom: 20px;
+        margin: 0 auto 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .author-card h3 {
-        font-size: var(--font-size-md);
+    .author-card h3, .author-card p, .author-role {
+        text-align: center;
+    }
+
+    .author-photo {
+        width: 100%;
+        height: auto;
     }
 }
