@@ -5,6 +5,7 @@
 .articles {
     background-color: #C2D1E1;
     margin: 0;
+    width: 100%;
     margin-top: 50px;
     box-sizing: border-box;
     border: 2px solid black;
