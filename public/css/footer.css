@@ -3,14 +3,13 @@
 }
 
 .footer {
-    background-color: white;
-    padding: 20px 0;
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    border: 2px solid black;
     text-align: center;
-    font-family: 'Avenir';
-    border-top: 1px solid var(--gray-light);
+    font-family: 'Avenir', sans-serif;
     margin-top: 40px;
     margin: 2rem;
-    border: 2px solid black;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -23,17 +22,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
-.footer p {
+.footer p, .footer-email {
     margin: 0;
-    font-size: var(--font-size-xs);
-    color: var (--gray);
+    font-size: 14px;
+    color: var(--gray-dark);
+}
+
+.footer-email {
+    text-decoration: none;
+    color: var(--blue);
+    font-weight: bold;
+}
+
+.footer-email:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 768px) {
     .footer-container {
         padding: 0 20px;
+        flex-direction: column;
     }
 }
