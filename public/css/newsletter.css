@@ -9,6 +9,8 @@
     font-family: 'Avenir';
     border: 2px solid black;
     margin-top: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
