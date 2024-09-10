@@ -6,6 +6,8 @@
     text-align: center;
     padding: 40px 0;
     margin-top: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
     background-color: white;
     font-family: 'Avenir';
     border: 2px solid black;
@@ -101,6 +103,7 @@
 
 .social-links {
     display: flex;
+    margin-top: 10px;
     justify-content: center;
     gap: 10px;
 }
@@ -108,7 +111,7 @@
 .btn-social {
     background-color: #007BFF;
     color: white;
-    padding: 5px 10px;
+    padding: 10px 10px;
     border-radius: 5px;
     text-decoration: none;
     font-size: var(--font-size-sm);
