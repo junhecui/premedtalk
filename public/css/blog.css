@@ -1,82 +1,107 @@
-/* Main content wrapper - ensures everything is centered */
-.content-wrapper {
+.blog-page .articles {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 100vw; /* Max width of content on large screens */
-    margin: 0 auto; /* Ensure the content is centered horizontally */
-    padding: 20px; /* Adds padding for space inside the content */
-}
-
-/* Blog posts section - centers grid and heading */
-.articles {
-    width: 100%;
-    max-width: 1200px; /* Adjust this as needed */
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
+    justify-content: center; /* Horizontally center the grid */
+    align-items: flex-start; /* Align grid items to the top */
     background-color: #EBE9F8;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 20px;
+    min-height: 100vh; /* Ensure full height for larger screens */
 }
 
-/* Blog Posts Heading */
-.article__heading {
-    font-weight: 600;
-    font-size: 2.5rem;
-    font-family: 'Futura Medium 65', sans-serif;
-    text-align: center;
-    margin-bottom: 40px;
-    width: 100%;
-}
-
-/* Article Grid - centers and arranges articles */
-.article-grid {
+.blog-page .article-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns */
-    gap: 20px; /* Space between grid items */
-    width: 100%;
-    max-width: 1000px; /* Constrain grid width */
-    justify-items: center; /* Centers each grid item */
-    margin: 0 auto; /* Ensure the grid is centered within the section */
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 20px;
+    max-width: 1200px; /* Limit the grid width */
+    width: 100%; /* Allow the grid to scale */
+    margin: 0 auto;
 }
 
-/* Article card styling */
-.article-card {
+.blog-page .article-card {
+    width: 100%; /* Full width for each card */
     display: flex;
     flex-direction: row;
     text-decoration: none;
     color: inherit;
     background-color: #C2D1E1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     overflow: hidden;
     border: 1px solid black;
-    max-width: 500px; /* Set max width for cards */
-    width: 100%; /* Ensure the card takes up available width */
 }
 
-/* Article image */
-.article-thumbnail {
+.blog-page .article__heading {
+    margin-top: 4rem;
+    text-align: center;
+    margin: 35px;
+    font-weight: 400;
+    font-size: var(--font-size-xxxl);
+    font-family: 'Futura Medium 65', sans-serif;
+}
+
+.blog-page .article-thumbnail {
     width: 40%;
-    object-fit: cover;
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure the image covers the area */
+    display: block;
 }
 
-/* Article info */
-.article-info {
+.blog-page .article-info {
     padding: 15px;
-    flex-grow: 1;
+    background-color: transparent; /* Remove background color to match section */
+    flex-grow: 1; /* Allow the text to take up the remaining space */
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-/* Responsive Adjustments */
+.blog-page .article-info h3 {
+    margin-top: 0;
+    color: var(--black);
+    font-size: 1.1rem;
+}
+
+.blog-page .article-info p {
+    font-size: var(--font-size-base);
+    color: var (--gray);
+    margin: 10px 0 0;
+    line-height: 1.5; /* Adjust line height for better readability */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.blog-page .article-details {
+    margin-top: 10px;
+}
+
+.blog-page .article-view-count {
+    font-size: var(--font-size-sm);
+    color: var(--gray);
+}
+
+/* Load More Button Styles */
+.blog-page #load-more {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    background-color: var(--black);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
-    .article-grid {
-        grid-template-columns: 1fr; /* One column for smaller screens */
+    .blog-page .article-grid {
+        grid-template-columns: 1fr; /* One column on smaller screens */
+        margin: 35px 10px; /* Adjust margin to reduce horizontal spacing */
+    }
+
+    .blog-page .article-card {
+        flex-direction: column; /* Stack image and text vertically */
+    }
+
+    .blog-page .article-thumbnail {
+        width: 100%; /* Full width image */
+        height: auto; /* Maintain aspect ratio */
     }
 }
