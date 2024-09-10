@@ -11,15 +11,13 @@
 </head>
 <body>
 
-    <!-- Main Content Wrapper -->
     <div class="content-wrapper blog-page">
-        <!-- Blog Posts Section -->
         <section class="articles">
             <h2 class="article__heading">Blog Posts</h2>
             <div class="article-grid" id="article-grid">
                 <% data.slice(0, 9).forEach(post => { %>
                     <a href="/post/<%= post._id %>" class="article-card">
-                        <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="article-thumbnail">
+                        <img src="<%= post.imageUrl ? post.imageUrl : '/img/main.jpg' %>" alt="<%= post.title %>" class="article-thumbnail">
                         <div class="article-info">
                             <h3><%= post.title %></h3>
                             <p><%= post.body.substring(0, 100) %>...</p>
@@ -40,7 +38,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const loadMoreButton = document.getElementById('load-more');
             let currentItems = 9;
-            const articles = <%= JSON.stringify(data) %>;
+            const articles = <%- JSON.stringify(data) %>;
             const articleGrid = document.getElementById('article-grid');
 
             if (loadMoreButton) {
@@ -53,7 +51,7 @@
                         articleCard.className = 'article-card';
 
                         const articleThumbnail = document.createElement('img');
-                        articleThumbnail.src = post.imageUrl;
+                        articleThumbnail.src = post.imageUrl ? post.imageUrl : '/images/default-placeholder.png';
                         articleThumbnail.alt = post.title;
                         articleThumbnail.className = 'article-thumbnail';
 

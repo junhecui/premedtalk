@@ -1,40 +1,41 @@
-/* Blog Page Specific Styles */
 .blog-page .articles {
+    display: flex;
+    justify-content: center; /* Horizontally center the grid */
+    align-items: flex-start; /* Align grid items to the top */
     background-color: #EBE9F8;
-    padding: 0;
-    text-align: center;
-    margin-left: 2%; /* Shift the container to the right by 5% */
-}
-
-.blog-page .article__heading {
-    margin-top: 4rem;
-    margin: 35px;
-    font-weight: 400;
-    font-size: var(--font-size-xxxl);
-    font-family: 'Futura Medium 65', sans-serif;
+    padding: 20px;
+    min-height: 100vh; /* Ensure full height for larger screens */
 }
 
 .blog-page .article-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
     gap: 20px;
-    padding: 0;
-    margin: 35px auto;
-    max-width: 1400px; /* Increased max-width for wider boxes */
-    justify-content: center; /* Center the grid */
+    max-width: 1200px; /* Limit the grid width */
+    width: 100%; /* Allow the grid to scale */
+    margin: 0 auto;
 }
 
 .blog-page .article-card {
-    width: 100%; /* Ensure full width for each card */
-    display: flex; /* Use flexbox for layout */
-    flex-direction: row; /* Image and text side by side */
-    text-decoration: none; /* Remove underline from links */
-    color: inherit; /* Inherit text color from parent */
-    background-color: #C2D1E1; /* Match the background to the section color */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%; /* Full width for each card */
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color: inherit;
+    background-color: #C2D1E1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: var(--border-radius);
     overflow: hidden;
-    border: 1px solid black; /* Thinner black border */
+    border: 1px solid black;
+}
+
+.blog-page .article__heading {
+    margin-top: 4rem;
+    text-align: center;
+    margin: 35px;
+    font-weight: 400;
+    font-size: var(--font-size-xxxl);
+    font-family: 'Futura Medium 65', sans-serif;
 }
 
 .blog-page .article-thumbnail {
@@ -89,7 +90,6 @@
     cursor: pointer;
 }
 
-/* Responsive Adjustments for Blog Page */
 @media (max-width: 768px) {
     .blog-page .article-grid {
         grid-template-columns: 1fr; /* One column on smaller screens */
@@ -98,7 +98,6 @@
 
     .blog-page .article-card {
         flex-direction: column; /* Stack image and text vertically */
-        padding-top: 56.25%; /* Adjust padding to maintain aspect ratio more suitable for full width */
     }
 
     .blog-page .article-thumbnail {

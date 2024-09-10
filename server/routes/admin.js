@@ -10,6 +10,7 @@ const { S3Client } = require('@aws-sdk/client-s3'); // AWS SDK's S3 Client for i
 const multerS3 = require('multer-s3'); // Extension of multer that enables files to be stored in S3
 const adminLayout = '../views/layouts/admin'; // Admin layout path for rendering views
 const jwtSecret = process.env.JWT_SECRET; // JWT secret key from environment variables
+const sanitizeHtml = require('sanitize-html');
 const nodemailer = require('nodemailer');
 
 // Configure transport options
@@ -97,13 +98,19 @@ router.post('/admin', async (req, res) => {
   }
 });
 
-
-// Route for handling post addition with image upload to AWS S3
-// POST route for adding a new post with email notifications to subscribers
 router.post('/add-post', upload.single('postImage'), async (req, res) => {
   const title = req.body.title;
-  const body = req.body.body;
+  let body = req.body.body;  // HTML content from the client
   let imageUrl = null;
+
+  // Sanitize HTML to prevent XSS attacks (optional)
+  body = sanitizeHtml(body, {
+    allowedTags: ['b', 'i', 'em', 'strong', 'a', 'p', 'h1', 'h2', 'img', 'ul', 'li'],
+    allowedAttributes: {
+      'a': ['href'],
+      'img': ['src', 'alt']
+    }
+  });
 
   if (req.file) {
       const file = req.file;
@@ -131,15 +138,13 @@ router.post('/add-post', upload.single('postImage'), async (req, res) => {
   try {
       const newPost = new Post({
           title: title,
-          body: body,
+          body: body,  // Save sanitized HTML
           imageUrl: imageUrl,
       });
       await newPost.save();
 
-      // Retrieve all subscribed users
       const subscribers = await EmailUser.find({ currentlySubscribed: true });
 
-      // Use Promise.all to wait for all emails to be sent before proceeding
       const sendEmailPromises = subscribers.map(subscriber => {
           const mailOptions = {
               from: process.env.EMAIL_USER,
@@ -161,7 +166,6 @@ router.post('/add-post', upload.single('postImage'), async (req, res) => {
           });
       });
 
-      // Wait for all the emails to be sent
       await Promise.all(sendEmailPromises);
 
       res.redirect('/dashboard');
@@ -170,8 +174,6 @@ router.post('/add-post', upload.single('postImage'), async (req, res) => {
       res.status(500).send('Internal server error');
   }
 });
-
-
 
 
 // Route to display the admin dashboard with a list of posts

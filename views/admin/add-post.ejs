@@ -8,43 +8,43 @@
     <link rel="stylesheet" href="/css/add-post.css">
 </head>
 <body>
-    <!-- Main Content Wrapper -->
     <div class="content-wrapper">
-        <!-- Navigation link to go back to the dashboard -->
         <a href="/dashboard" aria-label="Back to dashboard">&larr; Back</a>
 
-        <!-- Title section for the form -->
         <div class="admin-title">
             <h2>Add New Post</h2>
         </div>
 
-        <!-- Form for adding a new post. The method POST ensures data is sent as a request body -->
         <form action="/add-post" method="POST" enctype="multipart/form-data">
-            <!-- Label and input for the post's title. 'for' attribute in label must match the 'id' attribute in input -->
+            <!-- Title input field with correct label association -->
             <label for="title"><b>Title</b></label>
             <input type="text" placeholder="Enter Post Title" id="title" name="title" required>
 
-            <!-- Label and div for the post's content/body. You can paste formatted text directly here -->
-            <label for="postBody"><b>Content</b></label>
+            <!-- Content input: Removed label 'for' attribute for contenteditable div -->
+            <label for="postBodyTextarea"><b>Content</b></label>
             <div id="postBody" contenteditable="true" style="border: 1px solid #ccc; padding: 10px; min-height: 200px;"></div>
+            <!-- Textarea is hidden, will contain HTML from contenteditable div -->
             <textarea id="postBodyTextarea" name="body" hidden required></textarea>
 
-            <!-- Label and input for file upload. Only accepts image files -->
+            <!-- Image upload -->
             <label for="postImage"><b>Upload Image</b></label>
             <input type="file" id="postImage" name="postImage" accept="image/*">
 
-            <!-- Submit button for the form -->
+            <!-- Submit button -->
             <input type="submit" value="Add" class="btn">
         </form>
     </div>
 
     <script>
-        const postBodyDiv = document.getElementById('postBody');
-        const postBodyTextarea = document.getElementById('postBodyTextarea');
-        
-        // Convert div content to HTML on form submission
         document.querySelector('form').addEventListener('submit', function (event) {
+            const postBodyDiv = document.getElementById('postBody');
+            const postBodyTextarea = document.getElementById('postBodyTextarea');
+
+            // Assign the innerHTML of the contenteditable div to the hidden textarea
             postBodyTextarea.value = postBodyDiv.innerHTML;
+
+            // Debugging: Log the HTML content being submitted
+            console.log("HTML content submitted:", postBodyTextarea.value);
         });
     </script>
 </body>
