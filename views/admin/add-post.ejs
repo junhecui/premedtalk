@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PreMedTalk</title>
     <link rel="stylesheet" href="/css/style.css">
-    <!-- Include TipTap scripts from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tiptap/core@2.0.0-beta.121/dist/tiptap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tiptap/starter-kit@2.0.0-beta.121/dist/starter-kit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tiptap/extension-text-align@2.0.0-beta.121/dist/text-align.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tiptap/extension-image@2.0.0-beta.121/dist/image.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tiptap/extension-link@2.0.0-beta.121/dist/link.min.js"></script>
+    <link rel="stylesheet" href="/css/add-post.css">
 </head>
 <body>
     <!-- Main Content Wrapper -->
@@ -29,10 +24,10 @@
             <label for="title"><b>Title</b></label>
             <input type="text" placeholder="Enter Post Title" id="title" name="title" required>
 
-            <!-- Label and div for the post's content/body. This div will be enhanced by TipTap. -->
+            <!-- Label and div for the post's content/body. You can paste formatted text directly here -->
             <label for="postBody"><b>Content</b></label>
-            <div id="editor"></div>
-            <textarea id="postBody" name="body" hidden required></textarea>
+            <div id="postBody" contenteditable="true" style="border: 1px solid #ccc; padding: 10px; min-height: 200px;"></div>
+            <textarea id="postBodyTextarea" name="body" hidden required></textarea>
 
             <!-- Label and input for file upload. Only accepts image files -->
             <label for="postImage"><b>Upload Image</b></label>
@@ -43,7 +38,14 @@
         </form>
     </div>
 
-    <!-- Include the editor script -->
-    <script type="module" src="/js/editor.js"></script>
+    <script>
+        const postBodyDiv = document.getElementById('postBody');
+        const postBodyTextarea = document.getElementById('postBodyTextarea');
+        
+        // Convert div content to HTML on form submission
+        document.querySelector('form').addEventListener('submit', function (event) {
+            postBodyTextarea.value = postBodyDiv.innerHTML;
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+#postBody {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 200px;
+    font-family: Arial, sans-serif; /* Optional: Set a default font */
+    background-color: white; /* Ensure the background is white */
+    outline: none; /* Remove the blue outline when the div is focused */
+    border-radius: 5px; /* Optional: Make corners rounded */
+    overflow: auto; /* Add scrollbars if content overflows */
+}
+
+#postBody:focus {
+    border-color: #007bff; /* Change border color on focus */
+}
