@@ -1,17 +1,18 @@
+/* Main content wrapper - ensures everything is centered */
 .content-wrapper {
     display: flex;
-    flex-direction: column; /* Stack items vertically if needed */
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    max-width: 1200px; /* Adjust the max width as needed */
-    margin: 0 auto; /* Ensure the wrapper is centered horizontally */
-    padding: 20px; /* Optional: Padding for inner spacing */
+    max-width: 100vw; /* Max width of content on large screens */
+    margin: 0 auto; /* Ensure the content is centered horizontally */
+    padding: 20px; /* Adds padding for space inside the content */
 }
 
 /* Blog posts section - centers grid and heading */
 .articles {
-    width: 100vw;
+    width: 100%;
     max-width: 1200px; /* Adjust this as needed */
     margin-left: auto;
     margin-right: auto;
