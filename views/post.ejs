@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= data.title %></title>
-    <link rel="stylesheet" href="/public/css.style.css"> <!-- Update with actual path -->
-    <!-- Additional head elements -->
+    <link rel="stylesheet" href="/css/style.css"> 
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/post.css">
 </head>
 <body>
 
     <header>
-        <!-- Your navigation, header, or back link here -->
     </header>
 
     <main class="container">
@@ -21,14 +22,12 @@
         <% } %>
 
         <article class="article">    
-            <%- data.body %> <!-- Outputs sanitized HTML content directly -->
+            <%- data.body %>
         </article>
     </main>
 
     <footer>
-        <!-- Your footer here -->
     </footer>
 
-    <!-- Additional scripts if needed -->
 </body>
 </html>
