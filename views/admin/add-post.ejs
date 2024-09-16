@@ -16,21 +16,16 @@
         </div>
 
         <form action="/add-post" method="POST" enctype="multipart/form-data">
-            <!-- Title input field with correct label association -->
             <label for="title"><b>Title</b></label>
             <input type="text" placeholder="Enter Post Title" id="title" name="title" required>
 
-            <!-- Content input: Removed label 'for' attribute for contenteditable div -->
             <label for="postBodyTextarea"><b>Content</b></label>
             <div id="postBody" contenteditable="true" style="border: 1px solid #ccc; padding: 10px; min-height: 200px;"></div>
-            <!-- Textarea is hidden, will contain HTML from contenteditable div -->
             <textarea id="postBodyTextarea" name="body" hidden required></textarea>
 
-            <!-- Image upload -->
             <label for="postImage"><b>Upload Image</b></label>
             <input type="file" id="postImage" name="postImage" accept="image/*">
 
-            <!-- Submit button -->
             <input type="submit" value="Add" class="btn">
         </form>
     </div>

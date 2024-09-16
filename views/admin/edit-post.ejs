@@ -1,32 +1,24 @@
-<!-- Navigation link to go back to the dashboard -->
 <a href="/dashboard" aria-label="Back to dashboard">&larr; Back</a>
 
-<!-- Title section and delete action for the form -->
 <div class="admin-title">
     <h2>View / Edit Post</h2>
     
-    <!-- Form for deleting the current post -->
     <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
         <input type="submit" value="Delete" class="btn-delete btn" aria-label="Delete post">
     </form>
 </div>
 
-<!-- Form to edit the current post -->
 <form action="/edit-post/<%= data._id %>?_method=PUT" method="POST" enctype="multipart/form-data" onsubmit="submitEditorContent(event)">
-    <!-- Input field for the post's title -->
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>" id="title" required>
 
-    <!-- Div for editing the post's content -->
     <label for="body"><b>Content</b></label>
     <div id="editor"><%= data.body %></div>
     <textarea id="postBody" name="body" hidden required></textarea>
 
-    <!-- File input for uploading a new image for the post -->
     <label for="postImage"><b>Upload New Image (optional)</b></label>
     <input type="file" name="postImage" id="postImage" accept="image/*">
     
-    <!-- Submit button for updating the post -->
     <input type="submit" value="Update" class="btn">
 </form>
 
@@ -52,7 +44,6 @@
     content: document.querySelector('#editor').innerHTML,
   })
 
-  // Function to handle form submission
   function submitEditorContent(event) {
     event.preventDefault();
     const postBody = document.getElementById('postBody');
