@@ -1,4 +1,3 @@
-// server/config/db.js
 const mongoose = require('mongoose');
 
 // Asynchronously connects to MongoDB using Mongoose
