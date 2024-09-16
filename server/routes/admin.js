@@ -13,7 +13,6 @@ const jwtSecret = process.env.JWT_SECRET; // JWT secret key from environment var
 const sanitizeHtml = require('sanitize-html');
 const nodemailer = require('nodemailer');
 
-// Configure transport options
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -22,8 +21,6 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-
-// AWS S3 client configuration using environment variables for credentials
 const s3Client = new S3Client({
   region: 'us-west-2',
   credentials: {
@@ -37,24 +34,22 @@ const upload = multer({
   storage: multer.memoryStorage(),
 });
 
-const { Upload } = require('@aws-sdk/lib-storage'); // Importing Upload from AWS SDK for parallel uploads
+const { Upload } = require('@aws-sdk/lib-storage');
 
-// Middleware to check if the user is authenticated by verifying the JWT
 const authMiddleware = (req, res, next) => {
-  const token = req.cookies.token; // Extract token from cookies
+  const token = req.cookies.token;
   if (!token) {
-    return res.status(401).json({ message: 'Unauthorized' }); // Respond with 401 if no token is found
+    return res.status(401).json({ message: 'Unauthorized' }); 
   }
   try {
-    const decoded = jwt.verify(token, jwtSecret); // Verify token
-    req.userId = decoded.userId; // Set user ID from token
-    next(); // Continue to the next middleware
+    const decoded = jwt.verify(token, jwtSecret); 
+    req.userId = decoded.userId; 
+    next(); 
   } catch (error) {
-    res.status(401).json({ message: 'Unauthorized' }); // Catch any error during token verification
+    res.status(401).json({ message: 'Unauthorized' });
   }
 };
 
-// Route to render the admin login page
 router.get('/admin', async (req, res) => {
   try {
     res.render('admin/index', {
@@ -69,29 +64,24 @@ router.get('/admin', async (req, res) => {
   }
 });
 
-// POST route for admin login
 router.post('/admin', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-      // Find user in the database
       const user = await User.findOne({ username: username });
       if (!user) {
           return res.status(401).send('Login failed: User not found.');
       }
 
-      // Compare password with hashed password in database
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
           return res.status(401).send('Login failed: Incorrect password.');
       }
 
-      // Create a token for the user
       const token = jwt.sign({ userId: user._id }, jwtSecret /*, { expiresIn: '100h' }*/);
 
-      // Set the token in a HTTP-only cookie
       res.cookie('token', token, { httpOnly: true });
-      res.redirect('/dashboard');  // Redirect to the dashboard on successful login
+      res.redirect('/dashboard');
   } catch (error) {
       console.error('Error during login:', error);
       res.status(500).send('Internal server error during login.');
@@ -100,10 +90,9 @@ router.post('/admin', async (req, res) => {
 
 router.post('/add-post', upload.single('postImage'), async (req, res) => {
   const title = req.body.title;
-  let body = req.body.body;  // HTML content from the client
+  let body = req.body.body;
   let imageUrl = null;
 
-  // Sanitize HTML to prevent XSS attacks (optional)
   body = sanitizeHtml(body, {
     allowedTags: ['b', 'i', 'em', 'strong', 'a', 'p', 'h1', 'h2', 'img', 'ul', 'li'],
     allowedAttributes: {
@@ -176,7 +165,6 @@ router.post('/add-post', upload.single('postImage'), async (req, res) => {
 });
 
 
-// Route to display the admin dashboard with a list of posts
 router.get('/dashboard', authMiddleware, async (req, res) => {
   try {
     const data = await Post.find();
@@ -193,7 +181,6 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
   }
 });
 
-// Route to render the page to add a new post
 router.get('/add-post', authMiddleware, async (req, res) => {
   try {
     res.render('admin/add-post', {
@@ -208,7 +195,6 @@ router.get('/add-post', authMiddleware, async (req, res) => {
   }
 });
 
-// Route to render the edit post page
 router.get('/edit-post/:id', authMiddleware, async (req, res) => {
   try {
     const post = await Post.findOne({ _id: req.params.id });
@@ -225,15 +211,12 @@ router.get('/edit-post/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// Route to update a post
 router.put('/edit-post/:id', authMiddleware, upload.single('postImage'), async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
       return res.status(404).send('Post not found');
     }
-
-    // Prepare the basic update data
     const updateData = {
       title: req.body.title,
       body: req.body.body,
@@ -254,19 +237,17 @@ router.put('/edit-post/:id', authMiddleware, upload.single('postImage'), async (
         params: uploadParams,
       });
       const uploadResult = await parallelUploads3.done();
-      updateData.imageUrl = uploadResult.Location; // Update only if new image uploaded
+      updateData.imageUrl = uploadResult.Location;
     }
 
     await Post.findByIdAndUpdate(req.params.id, updateData);
-    res.redirect('/dashboard'); // Redirect to the dashboard after updating
+    res.redirect('/dashboard');
   } catch (error) {
     console.error('Failed to update post:', error);
-    res.redirect(`/edit-post/${req.params.id}`); // Redirect back to the edit page if there's an error
+    res.redirect(`/edit-post/${req.params.id}`);
   }
 });
 
-
-// Route to delete a post
 router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
   try {
     await Post.deleteOne({ _id: req.params.id });
@@ -277,7 +258,6 @@ router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// Route to handle admin logout
 router.get('/logout', (req, res) => {
   res.clearCookie('token');
   res.redirect('/');
