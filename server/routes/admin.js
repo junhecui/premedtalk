@@ -22,7 +22,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const s3Client = new S3Client({
-  region: 'us-west-2',
+  region: 'us-east-2',
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -104,7 +104,7 @@ router.post('/add-post', upload.single('postImage'), async (req, res) => {
   if (req.file) {
       const file = req.file;
       const uploadParams = {
-          Bucket: 'premedtalk-images',
+          Bucket: 'premedtalk',
           Key: `${Date.now().toString()}-${file.originalname}`,
           Body: file.buffer,
           ContentType: file.mimetype,
@@ -226,7 +226,7 @@ router.put('/edit-post/:id', authMiddleware, upload.single('postImage'), async (
     if (req.file) {
       const file = req.file;
       const uploadParams = {
-        Bucket: 'premedtalk-images',
+        Bucket: 'premedtalk',
         Key: `${Date.now().toString()}-${file.originalname}`,
         Body: file.buffer,
         ContentType: file.mimetype,
