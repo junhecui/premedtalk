@@ -1,5 +1,5 @@
 /node_modules
-.en
+.env
 
 # Ignore font files
 *.ttf
