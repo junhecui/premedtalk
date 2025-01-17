@@ -1,21 +1,26 @@
 <header class="header">
-  <a href="/" class="header__logo">
-    <img src="/img/premedtalk-logo.png" alt="PreMedTalk Logo" style="width: auto; height: auto;">
-  </a>  
-  
-  <nav class="header__nav">
-    <ul>
-      <li>
-        <a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a>
-      </li>
-      <li>
-        <a href="/blog" class="<%= isActiveRoute('/blog', currentRoute) %>">Blog</a>
-      </li>
-    </ul>
-  </nav>
+  <div class="header__container">
+    <!-- Navigation -->
+    <nav class="header__nav">
+      <ul>
+        <li>
+          <a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a>
+        </li>
+        <li>
+          <a href="/blog" class="<%= isActiveRoute('/blog', currentRoute) %>">Blog</a>
+        </li>
+      </ul>
+    </nav>
 
-  <div class="header__button">
-    <form action="/search" method="POST" id="searchForm">
+    <!-- Logo -->
+    <div class="header__logo">
+      <a href="/">
+        PRE <span class="red-letter">M</span>E<span class="red-letter">D </span>TALK
+      </a>
+    </div>
+
+    <!-- Search Bar -->
+    <form action="/search" method="POST" class="header__search">
       <input type="text" name="searchTerm" placeholder="Search.." required>
     </form>
   </div>

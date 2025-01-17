@@ -1,3 +1,13 @@
 /node_modules
 .en
-.ttf
+
+# Ignore font files
+*.ttf
+*.otf
+*.woff
+*.woff2
+*.eot
+
+# Ignore the entire fonts directory (if applicable)
+public/fonts/
+
