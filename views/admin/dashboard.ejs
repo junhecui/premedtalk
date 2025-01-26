@@ -1,21 +1,56 @@
-<div class="admin-title">
-  <h2>Posts</h2>
-  <a href="/add-post" class="button">+ Add New</a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreMedTalk Admin Dashboard</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTTXJN3cB39GNyyXbC9zBQGxlOTxMk7o3PpA77XrDk/Vgim+cBfOwlwUCkPQhYzEuPp2bZIBwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+    <!-- Shared Variables -->
+    <link rel="stylesheet" href="/css/variables.css">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <h1 class="admin-header__title">PreMedTalk Admin Dashboard</h1>
+            <a href="/" class="admin-header__home-link"><i class="fas fa-home"></i> Back to Website</a>
+        </header>
 
-<ul class="admin-posts">
-  <% data.forEach(post => { %>
-      <li>
-          <a href="/post/<%= post._id %>" aria-label="View <%= post.title %>">
-              <%= post.title %> &nearr;
-          </a>
-          <div class="admin-post-controls">
-              <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+        <!-- Admin Content -->
+        <main class="admin-main">
+            <div class="admin-title">
+                <h2 class="admin-title__heading">Posts</h2>
+                <a href="/add-post" class="button button--primary admin-title__add-button"><i class="fas fa-plus"></i> Add New</a>
+            </div>
+            
+            
+            <ul class="admin-posts">
+                <% data.forEach(post => { %>
+                    <li class="admin-post">
+                        <a href="/post/<%= post._id %>" class="admin-post__link" aria-label="View <%= post.title %>">
+                            <%= post.title %> <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <div class="admin-post__controls">
+                            <a href="/edit-post/<%= post._id %>" class="button button--secondary"><i class="fas fa-edit"></i> Edit</a>
 
-              <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
-                  <input type="submit" value="Delete" class="btn-delete btn" aria-label="Delete <%= post.title %>">
-              </form>
-          </div>
-      </li>
-  <% }) %>
-</ul>
+                            <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST" class="admin-post__delete-form" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                                <button type="submit" class="button button--danger" aria-label="Delete <%= post.title %>"><i class="fas fa-trash-alt"></i> Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        </main>
+
+        <!-- Admin Footer -->
+        <footer class="admin-footer">
+            <p>&copy; 2025 PreMedTalk. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

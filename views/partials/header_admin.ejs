@@ -1,23 +1,10 @@
-<header class="header">
-    <a href="/" class="header__logo">Admin Panel</a>
-  
-    <nav class="header__nav">
-      <ul>
-        <li>
-          <a href="/" class="">Home</a>
-        </li>
-        <li>
-          <a href="/about" class="">About</a>
-        </li>
-        <li>
-          <a href="/contact" class="">Contact</a>
-        </li>
-      </ul>
-    </nav>
+<!-- header_admin.ejs -->
+<header class="admin-header">
+  <a href="/dashboard" class="admin-header__logo">Admin Panel</a>
 
-    <div class="header__button">
-        <a href="/logout">
-            Logout
-        </a>
-      </div>
+  <div class="admin-header__actions">
+      <a href="/logout" class="button button--danger">
+          <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+  </div>
 </header>

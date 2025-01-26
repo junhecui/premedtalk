@@ -1,0 +1,276 @@
+/* admin.css */
+
+/* Import Shared Variables */
+@import url('/css/variables.css');
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-light-gray);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: var(--color-primary);
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    color: var(--color-hover);
+}
+
+/* Admin Container */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Admin Header */
+.admin-header {
+    background-color: var(--color-secondary);
+    padding: 20px 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-header__logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.admin-header__actions {
+    /* Ensures Logout button aligns properly */
+}
+
+/* Admin Main Content */
+.admin-main {
+    flex: 1;
+    padding: 40px 40px;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+}
+
+/* Admin Titles */
+.admin-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.admin-title__heading {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--color-text);
+    margin-bottom: 15px; /* Adds space between heading and button */
+}
+
+.admin-title__add-button {
+    /* Optional: Add specific styles for the Add New button if needed */
+    /* For example, aligning the button to the left */
+    align-self: flex-start;
+}
+
+
+/* Buttons */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    color: var(--color-secondary);
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    min-width: 120px;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: var(--color-hover);
+    transform: translateY(-2px);
+}
+
+.button--secondary {
+    background-color: #6C757D; /* Gray for secondary actions */
+}
+
+.button--secondary:hover {
+    background-color: #5a6268;
+}
+
+.button--danger {
+    background-color: var(--color-danger);
+}
+
+.button--danger:hover {
+    background-color: darken(var(--color-danger), 10%);
+}
+
+/* Admin Posts List */
+.admin-posts {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-post {
+    background-color: var(--color-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: box-shadow var(--transition-speed);
+}
+
+.admin-post:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-post__link {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.admin-post__controls {
+    display: flex;
+    gap: 10px;
+}
+
+/* Delete Form Button */
+.admin-post__delete-form .button--danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Admin Forms */
+.admin-form {
+    background-color: var(--color-secondary);
+    padding: 30px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group__label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.form-group__input,
+.form-group__textarea {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: var(--font-secondary);
+    transition: border-color var(--transition-speed);
+}
+
+.form-group__input:focus,
+.form-group__textarea:focus,
+.editor:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+.editor {
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    padding: 10px;
+    min-height: 200px;
+    background-color: #fff;
+    transition: border-color var(--transition-speed);
+}
+
+/* Admin Footer */
+.admin-footer {
+    background-color: var(--color-secondary);
+    text-align: center;
+    padding: 20px 40px;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.9rem;
+    color: var(--color-text);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-header__actions {
+        margin-top: 10px;
+    }
+
+    .admin-main {
+        padding: 20px 20px;
+    }
+
+    .admin-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .admin-form {
+        padding: 20px;
+    }
+
+    .button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .button--secondary,
+    .button--danger {
+        width: 100%;
+    }
+
+    .admin-post {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .admin-post__controls {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}

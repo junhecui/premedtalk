@@ -1,0 +1,28 @@
+/* variables.css */
+
+/* Color Palette */
+:root {
+    --color-primary: #4A90E2;       /* Primary Blue */
+    --color-secondary: #FFFFFF;     /* White */
+    --color-accent: #50C878;        /* Emerald Green */
+    --color-danger: #E74C3C;        /* Red for Danger Buttons */
+    --color-text: #333333;          /* Dark Gray */
+    --color-light-gray: #F4F6F8;    /* Light Gray */
+    --color-border: #e0e0e0;        /* Light Border Gray */
+    --color-hover: #3b7dc6;         /* Hover Color for Primary Elements */
+
+    /* Typography */
+    --font-primary: 'Montserrat', sans-serif;
+    --font-secondary: 'Roboto', sans-serif;
+    --font-heading: 'Cormorant Garamond', serif;
+
+    /* Layout */
+    --transition-speed: 0.3s;
+    --border-radius: 8px;
+    --container-max-width: 1200px;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}

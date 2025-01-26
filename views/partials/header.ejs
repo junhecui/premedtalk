@@ -1,22 +1,44 @@
+<!-- views/partials/header.ejs -->
 <header class="header">
-  <a href="/" class="header__logo">
-    <img src="/img/premedtalk-logo.png" alt="PreMedTalk Logo TEST" style="width: auto; height: auto;">
-  </a>  
-  
-  <nav class="header__nav">
-    <ul>
-      <li>
-        <a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a>
-      </li>
-      <li>
-        <a href="/blog" class="<%= isActiveRoute('/blog', currentRoute) %>">Blog</a>
-      </li>
-    </ul>
-  </nav>
+  <div class="header__container">
+      <!-- Logo Section -->
+      <a href="/" class="header__logo">
+          <img src="/img/premedtalk-logo.png" alt="PreMedTalk Logo" class="header__logo-img">
+      </a>
 
-  <div class="header__button">
-    <form action="/search" method="POST" id="searchForm">
-      <input type="text" name="searchTerm" placeholder="Search.." required>
-    </form>
+      <!-- Navigation Links -->
+      <nav class="header__nav" id="nav-menu">
+          <ul class="nav__list">
+              <li class="nav__item">
+                  <a href="/" class="nav__link <%= isActiveRoute('/', currentRoute) %>">Home</a>
+              </li>
+              <li class="nav__item">
+                  <a href="/blog" class="nav__link <%= isActiveRoute('/blog', currentRoute) %>">Blog</a>
+              </li>
+              <!-- Add more navigation links here if needed -->
+          </ul>
+      </nav>
+
+      <!-- Hamburger Menu -->
+      <div class="header__actions">
+          <!-- Hamburger Menu Button -->
+          <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+              <span class="hamburger"></span>
+          </button>
+      </div>
   </div>
 </header>
+
+<!-- JavaScript for Hamburger Menu -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+
+  navToggle.addEventListener('click', () => {
+    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', !isExpanded);
+    navMenu.classList.toggle('nav__menu--active');
+  });
+});
+</script>

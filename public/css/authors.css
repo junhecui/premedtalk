@@ -1,15 +1,15 @@
-.authors-section-wrapper {
-    animation: fadeInFromTop 1.5s ease-in-out 1.5s both;
-}
+/* authors.css */
 
+/* Import Shared Variables */
+@import url('/css/variables.css');
+
+/* Authors Section Styles */
 .authors-section {
     text-align: center;
-    padding: 40px 0;
+    padding: 40px 20px; /* Reduced horizontal padding */
     margin-top: 25px;
-    margin-left: 25px;
-    margin-right: 25px;
     background-color: white;
-    font-family: 'Avenir';
+    font-family: 'Avenir', sans-serif;
     border: 2px solid black;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -19,7 +19,7 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.meet-the-authors h2 {
+.authors__heading {
     font-family: 'Futura Medium 65', sans-serif;
     font-size: var(--font-size-xl);
     margin-bottom: 10px;
@@ -32,35 +32,32 @@
     margin: 10px auto 30px;
 }
 
-.authors-description {
-    margin: 0 30%;
-    margin-bottom: 40px;
+.authors__description {
+    margin: 0 auto 40px auto;
     color: #666;
     font-size: var(--font-size-base);
     text-align: center;
-    font-family: 'Cormorant Garamond', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     line-height: 150%;
+    max-width: 800px;
 }
 
-.authors-container {
+.authors__container {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start; /* Align items to the left */
     flex-wrap: wrap;
-}
-
-.author-card-wrapper {
-    animation: fadeInFromTop 1.5s ease-in-out 1.5s both;
+    gap: 20px; /* Reduced from 40px */
 }
 
 .author-card {
-    flex: 1 1;
-    display: block;
+    flex: 1 1 30%; /* Allows up to three cards per row */
+    max-width: 30%;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: #CFD9E5;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    max-width: 300px;
     text-align: left;
     border: 2px solid black;
     overflow: visible;
@@ -74,12 +71,13 @@
 
 .author-photo {
     width: 100%;
-    height: 300px;
+    height: 200px; /* Reduced height for better fit */
     margin-bottom: 10px;
     object-fit: cover;
+    border-radius: var(--border-radius);
 }
 
-.author-card h3 {
+.author-name {
     margin-top: 0;
     margin-bottom: 0;
     font-family: 'Futura Medium 65', sans-serif;
@@ -87,54 +85,64 @@
     color: #1c1c1c;
 }
 
-.author-card p {
-    font-family: 'Cormorant Garamond', sans-serif;
+.author-bio {
+    font-family: 'Cormorant Garamond', serif;
     font-size: var(--font-size-xs);
     color: #1c1c1c;
     line-height: 1.5;
     flex-grow: 1;
 }
 
-.author-role {
-    font-size: var(--font-size-sm);
-    color: #7E7E7E;
-    margin: 10px 0;
-}
-
 .social-links {
     display: flex;
-    margin-top: 10px;
     justify-content: center;
     gap: 10px;
+    margin-top: 10px;
 }
 
 .btn-social {
     background-color: #007BFF;
     color: white;
-    padding: 10px 10px;
+    padding: 10px;
     border-radius: 5px;
     text-decoration: none;
     font-size: var(--font-size-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-speed);
 }
 
+.btn-social:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Styles */
 @media (max-width: 1440px) {
-    .authors-description {
+    .authors__description {
         margin: 0 10%;
         margin-bottom: 20px;
     }
 
-    .author-card h3 {
-        font-size: var(--font-size-md)
+    .author-name {
+        font-size: var(--font-size-md);
+    }
+
+    .author-card {
+        flex: 1 1 45%; /* Adjust for larger screens */
+        max-width: 45%;
     }
 }
 
 @media (max-width: 768px) {
-    .authors-container {
+    .authors__container {
         flex-direction: column;
         align-items: center;
+        gap: 20px; /* Reduced gap */
     }
 
     .author-card {
+        flex: 1 1 90%;
         max-width: 90%;
         margin: 0 auto 20px;
         display: flex;
@@ -142,7 +150,8 @@
         align-items: center;
     }
 
-    .author-card h3, .author-card p, .author-role {
+    .author-name,
+    .author-bio {
         text-align: center;
     }
 

@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PreMedTalk</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTTXJN3cB39GNyyXbC9zBQGxlOTxMk7o3PpA77XrDk/Vgim+cBfOwlwUCkPQhYzEuPp2bZIBwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+    <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/front.css">
     <link rel="stylesheet" href="/css/articles.css">
@@ -13,119 +17,131 @@
     <link rel="stylesheet" href="/css/footer.css">
 </head>
 <body>
-<div class="page-container">
-    <section class="front-section">
-        <div class="front">
-            <div class="front__text">
-                <h1 class="front__heading">PreMedTalk</h1>
-                <p class="front__body">A PreMed Blog</p>
-                <p class="front__description">
-                    Welcome to PreMedTalk, a McMaster student-led initiative. Our weekly articles and mailing list cover a
-                    range of topics including medicine, medical schools, health, and global healthcare news, all aimed at
-                    making medical school information accessible to pre-med and undergraduate students. Explore our blog
-                    and discover a new way to experience health and wellness.
-                </p>
-                <p class="front__description">
-                    OUR MISSION<br>
-                    At PreMedTalk, we are dedicated to demystifying the journey to becoming a medical professional. As
-                    aspiring healthcare providers ourselves, we understand the challenges and complexities faced by pre-med
-                    students. Our mission is to provide accessible, reliable, and comprehensive information that empowers
-                    future medical students.
-                </p>
-            </div>
-            <div class="front__image-container">
-                <img src="/img/placeholder-index-image.avif" alt="intro" class="main-image">
-            </div>
-        </div>
-    </section>
-</div>
-<div class="articles-wrapper">
-        <section class="articles">
-            <h2 class="article__heading">Latest Articles</h2>
-            <div class="article-grid">
-                <% data.slice(0, 3).forEach(post => { %>
-                    <a href="/post/<%= post._id %>" class="article-card">
-                        <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="article-thumbnail">
-                        <div class="article-info">
-                            <h3><%= post.title %></h3>
-                            <p><%- post.body.substring(0, 100) %>...</p>
-                            <div class="article-details">
-                                <span class="article-view-count">Views: <%= post.viewCount %></span>
-                                <span class="article-like-count">♥</span>
-                            </div>
-                        </div>
-                    </a>
-                <% }) %>            
-            </div>
-        </div>
-        </section>    
 
-        <div class="newsletter-subscription-wrapper">
-        <section class="newsletter-subscription">
-            <h2>Subscribe to Our Newsletter!</h2>
-            <form action="/subscribe" method="POST">
-                <div class="form-group">
-                    <label for="subscribeEmail" class="email-label">Enter your email here *</label>
-                    <input type="email" id="subscribeEmail" name="email" placeholder=" " required>
-                    <button type="submit">Sign Up</button>
+    <!-- Main Content -->
+    <div class="page-container">
+        <!-- Front Section -->
+        <section class="front-section">
+            <div class="front">
+                <div class="front__text">
+                    <h1 class="front__heading">PreMedTalk</h1>
+                    <p class="front__body">A PreMed Blog</p>
+                    <p class="front__description">
+                        Welcome to PreMedTalk, a McMaster student-led initiative. Our weekly articles and mailing list cover a
+                        range of topics including medicine, medical schools, health, and global healthcare news, all aimed at
+                        making medical school information accessible to pre-med and undergraduate students. Explore our blog
+                        and discover a new way to experience health and wellness.
+                    </p>
+                    <p class="front__description">
+                        <strong>OUR MISSION</strong><br>
+                        At PreMedTalk, we are dedicated to demystifying the journey to becoming a medical professional. As
+                        aspiring healthcare providers ourselves, we understand the challenges and complexities faced by pre-med
+                        students. Our mission is to provide accessible, reliable, and comprehensive information that empowers
+                        future medical students.
+                    </p>
                 </div>
-                <p class="submission-message">Thanks for submitting!</p>
-            </form>
+                <div class="front__image-container">
+                    <img src="/img/placeholder-index-image.avif" alt="Introductory Image" class="main-image">
+                </div>
+            </div>
         </section>
-        </div>
 
-        <div class="authors-section-wrapper">
+        <!-- Latest Articles Section -->
+        <section class="articles">
+            <div class="container">
+                <h2 class="articles__heading">Latest Articles</h2>
+                <div class="articles__grid">
+                    <% data.slice(0, 3).forEach(post => { %>
+                        <a href="/post/<%= post._id %>" class="article-card">
+                            <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="article-thumbnail">
+                            <div class="article-info">
+                                <h3 class="article-title"><%= post.title %></h3>
+                                <p class="article-excerpt"><%- post.body.substring(0, 100) %>...</p>
+                                <div class="article-details">
+                                    <span class="article-view-count">👁️ <%= post.viewCount %> Views</span>
+                                    <span class="article-like-count">❤️</span>
+                                </div>
+                            </div>
+                        </a>
+                    <% }) %>            
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Subscription Section -->
+        <section class="newsletter-subscription">
+            <div class="container">
+                <h2 class="newsletter__heading">Subscribe to Our Newsletter!</h2>
+                <form action="/subscribe" method="POST" class="newsletter__form">
+                    <div class="form-group">
+                        <label for="subscribeEmail" class="email-label">Enter your email here *</label>
+                        <input type="email" id="subscribeEmail" name="email" placeholder="your.email@example.com" required>
+                        <button type="submit" class="newsletter__button">Sign Up</button>
+                    </div>
+                    <p class="submission-message">Thanks for subscribing!</p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Authors Section -->
         <section class="authors-section">
             <div class="container">
-                <h2>Meet the Authors</h2>
+                <h2 class="authors__heading">Meet the Authors</h2>
                 <div class="underline"></div>
-                <p class="authors-description">
+                <p class="authors__description">
                     Welcome to our blog! We are passionate about making pre-med knowledge more accessible and understandable.
                     As second-year Health Sciences students at McMaster University, we are thrilled to share insights, updates,
                     and resources to help aspiring medical professionals on their journey. Get to know us better and see what
                     drives our dedication to healthcare and education!
                 </p>
-                <div class="authors-container">
-                    <div class="author-card-wrapper">
+                <div class="authors__container">
                     <div class="author-card">
-                        <img src="/img/ilias.jpg" alt="Ilias" class="author-photo">
-                        <h3>Ilias Farooq</h3>
-                        <p>Ilias is a second-year Health Sciences student at McMaster University with a focus on family
+                        <img src="/img/ilias.jpg" alt="Ilias Farooq" class="author-photo">
+                        <h3 class="author-name">Ilias Farooq</h3>
+                        <p class="author-bio">Ilias is a second-year Health Sciences student at McMaster University with a focus on family
                             medicine. He is involved in clinical work at Credit Valley Hospital and other clinics and enjoys
                             the dynamics of working with a diverse patient base. He is passionate about advancing his medical
                             knowledge and sharing it with others to improve healthcare accessibility.</p>
                         <div class="social-links">
-                            <a href="https://www.linkedin.com/in/iliasff/" class="btn-social">
+                            <a href="https://www.linkedin.com/in/iliasff/" class="btn-social" aria-label="Ilias's LinkedIn">
                                 <i class="fab fa-linkedin"></i>
                             </a>
-                            <a href="mailto:iliasfarooq@gmail.com" class="btn-social">
+                            <a href="mailto:iliasfarooq@gmail.com" class="btn-social" aria-label="Ilias's Email">
                                 <i class="fas fa-envelope"></i>
                             </a>
                         </div>
                     </div>
-                </div>
-                <div class="author-card-wrapper">
                     <div class="author-card">
-                        <img src="/img/niko.jpg" alt="Niko" class="author-photo">
-                        <h3>Niko Stratopoulos</h3>
-                        <p>Niko, a fellow second-year at McMaster, combines his roles as a lifeguard and a budding family
+                        <img src="/img/niko.jpg" alt="Niko Stratopoulos" class="author-photo">
+                        <h3 class="author-name">Niko Stratopoulos</h3>
+                        <p class="author-bio">Niko, a fellow second-year at McMaster, combines his roles as a lifeguard and a budding family
                             medicine enthusiast with a deep fascination for human anatomy. His commitment to healthcare is
                             matched by his dedication to community service and his proactive approach to learning and sharing
                             medical knowledge.</p>
                         <div class="social-links">
-                            <a href="https://www.linkedin.com/in/nikostratopoulos" class="btn-social">
+                            <a href="https://www.linkedin.com/in/nikostratopoulos" class="btn-social" aria-label="Niko's LinkedIn">
                                 <i class="fab fa-linkedin"></i>
                             </a>
-                            <a href="mailto:nikostratopoulos@gmail.com" class="btn-social">
+                            <a href="mailto:nikostratopoulos@gmail.com" class="btn-social" aria-label="Niko's Email">
                                 <i class="fas fa-envelope"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
-        </section>
+        </section>        
     </div>
-    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 PreMedTalk. All rights reserved.</p>
+            <div class="footer__links">
+                <a href="/">Home</a>
+                <a href="/blog">Blog</a>
+                <!-- Add more footer links as needed -->
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

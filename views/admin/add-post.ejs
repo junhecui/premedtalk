@@ -3,43 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PreMedTalk</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/add-post.css">
+    <title>Add New Post - PreMedTalk Admin</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTTXJN3cB39GNyyXbC9zBQGxlOTxMk7o3PpA77XrDk/Vgim+cBfOwlwUCkPQhYzEuPp2bZIBwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+    <!-- Shared Variables -->
+    <link rel="stylesheet" href="/css/variables.css">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="/css/admin.css">
+    <!-- TipTap Editor CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/@tiptap/starter-kit@2.0.0-beta.120/dist/tiptap.css">
 </head>
 <body>
-    <div class="content-wrapper">
-        <a href="/dashboard" aria-label="Back to dashboard">&larr; Back</a>
+    <div class="admin-container">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <h1 class="admin-header__title">PreMedTalk Admin Dashboard</h1>
+            <a href="/dashboard" class="admin-header__home-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </header>
 
-        <div class="admin-title">
-            <h2>Add New Post</h2>
-        </div>
+        <!-- Admin Content -->
+        <main class="admin-main">
+            <div class="admin-title">
+                <h2 class="admin-title__heading">Add New Post</h2>
+            </div>
 
-        <form action="/add-post" method="POST" enctype="multipart/form-data">
-            <label for="title"><b>Title</b></label>
-            <input type="text" placeholder="Enter Post Title" id="title" name="title" required>
+            <form action="/add-post" method="POST" enctype="multipart/form-data" class="admin-form">
+                <div class="form-group">
+                    <label for="title" class="form-group__label"><b>Title</b></label>
+                    <input type="text" placeholder="Enter Post Title" id="title" name="title" class="form-group__input" required>
+                </div>
 
-            <label for="postBodyTextarea"><b>Content</b></label>
-            <div id="postBody" contenteditable="true" style="border: 1px solid #ccc; padding: 10px; min-height: 200px;"></div>
-            <textarea id="postBodyTextarea" name="body" hidden required></textarea>
+                <div class="form-group">
+                    <label for="postBody" class="form-group__label"><b>Content</b></label>
+                    <div id="postBody" class="editor" contenteditable="true"></div>
+                    <textarea id="postBodyTextarea" name="body" class="form-group__textarea" hidden required></textarea>
+                </div>
 
-            <label for="postImage"><b>Upload Image</b></label>
-            <input type="file" id="postImage" name="postImage" accept="image/*">
+                <div class="form-group">
+                    <label for="postImage" class="form-group__label"><b>Upload Image</b></label>
+                    <input type="file" id="postImage" name="postImage" accept="image/*" class="form-group__input">
+                </div>
 
-            <input type="submit" value="Add" class="btn">
-        </form>
+                <button type="submit" class="button button--primary"><i class="fas fa-plus"></i> Add Post</button>
+            </form>
+        </main>
+
+        <!-- Admin Footer -->
+        <footer class="admin-footer">
+            <p>&copy; 2025 PreMedTalk. All rights reserved.</p>
+        </footer>
     </div>
 
+    <!-- TipTap Editor Script -->
+    <script src="https://unpkg.com/@tiptap/core@2.0.0-beta.120/dist/tiptap.umd.js"></script>
+    <script src="https://unpkg.com/@tiptap/starter-kit@2.0.0-beta.120/dist/tiptap-starter-kit.umd.js"></script>
+    <script src="https://unpkg.com/@tiptap/extension-link@2.0.0-beta.120/dist/tiptap-extension-link.umd.js"></script>
+    <script src="https://unpkg.com/@tiptap/extension-image@2.0.0-beta.120/dist/tiptap-extension-image.umd.js"></script>
+    <script src="https://unpkg.com/@tiptap/extension-text-align@2.0.0-beta.120/dist/tiptap-extension-text-align.umd.js"></script>
+    <script src="https://unpkg.com/@tiptap/extension-list@2.0.0-beta.120/dist/tiptap-extension-list.umd.js"></script>
+
     <script>
+        // Initialize TipTap Editor
+        const { Editor } = window.tiptap;
+        const StarterKit = window.tiptapStarterKit.StarterKit;
+        const Link = window.tiptapExtensionLink.Link;
+        const Image = window.tiptapExtensionImage.Image;
+        const TextAlign = window.tiptapExtensionTextAlign.TextAlign;
+        const List = window.tiptapExtensionList.List;
+
+        const editor = new Editor({
+            element: document.querySelector('#postBody'),
+            extensions: [
+                StarterKit,
+                Link,
+                Image,
+                TextAlign.configure({
+                    types: ['heading', 'paragraph'],
+                }),
+                List
+            ],
+            content: '',
+        });
+
+        // Handle Form Submission
         document.querySelector('form').addEventListener('submit', function (event) {
             const postBodyDiv = document.getElementById('postBody');
             const postBodyTextarea = document.getElementById('postBodyTextarea');
 
-            // Assign the innerHTML of the contenteditable div to the hidden textarea
-            postBodyTextarea.value = postBodyDiv.innerHTML;
-
-            // Debugging: Log the HTML content being submitted
-            console.log("HTML content submitted:", postBodyTextarea.value);
+            // Assign the HTML content from TipTap editor to the hidden textarea
+            postBodyTextarea.value = editor.getHTML();
         });
     </script>
 </body>

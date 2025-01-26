@@ -1,23 +1,72 @@
-<h3>Sign In</h3>
-<form action="/admin" method="POST">
-    <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username" id="username" required>
-    
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" id="password" required>
-    
-    <input type="submit" value="Login" class="btn">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - PreMedTalk</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTTXJN3cB39GNyyXbC9zBQGxlOTxMk7o3PpA77XrDk/Vgim+cBfOwlwUCkPQhYzEuPp2bZIBwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Shared Variables -->
+    <link rel="stylesheet" href="/css/variables.css">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <h1 class="admin-header__title">PreMedTalk Admin Login</h1>
+            <a href="/" class="admin-header__home-link"><i class="fas fa-home"></i> Back to Website</a>
+        </header>
 
-<!--
-<h3>Register</h3>
-<form action="/register" method="POST">
-    <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username" id="username" required>
-    
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" id="password" required>
-    
-    <input type="submit" value="Register" class="btn">
-</form>
--->
+        <!-- Admin Content -->
+        <main class="admin-main">
+            <div class="admin-title">
+                <h2 class="admin-title__heading">Sign In</h2>
+            </div>
+
+            <form action="/admin" method="POST" class="admin-form">
+                <div class="form-group">
+                    <label for="username" class="form-group__label"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="username" id="username" class="form-group__input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-group__label"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="password" id="password" class="form-group__input" required>
+                </div>
+                
+                <button type="submit" class="button button--primary"><i class="fas fa-sign-in-alt"></i> Login</button>
+            </form>
+
+            <!-- Optional Registration Form (Commented Out) -->
+            <!--
+            <div class="admin-title">
+                <h2 class="admin-title__heading">Register</h2>
+            </div>
+
+            <form action="/register" method="POST" class="admin-form">
+                <div class="form-group">
+                    <label for="registerUsername" class="form-group__label"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="username" id="registerUsername" class="form-group__input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword" class="form-group__label"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="password" id="registerPassword" class="form-group__input" required>
+                </div>
+                
+                <button type="submit" class="button button--secondary"><i class="fas fa-user-plus"></i> Register</button>
+            </form>
+            -->
+        </main>
+
+        <!-- Admin Footer -->
+        <footer class="admin-footer">
+            <p>&copy; 2025 PreMedTalk. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

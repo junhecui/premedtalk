@@ -1,53 +1,103 @@
-<a href="/dashboard" aria-label="Back to dashboard">&larr; Back</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post - PreMedTalk Admin</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTTXJN3cB39GNyyXbC9zBQGxlOTxMk7o3PpA77XrDk/Vgim+cBfOwlwUCkPQhYzEuPp2bZIBwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+    <!-- Shared Variables -->
+    <link rel="stylesheet" href="/css/variables.css">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="/css/admin.css">
+    <!-- TipTap Editor CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/@tiptap/starter-kit@2.0.0-beta.120/dist/tiptap.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <h1 class="admin-header__title">PreMedTalk Admin Dashboard</h1>
+            <a href="/dashboard" class="admin-header__home-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </header>
 
-<div class="admin-title">
-    <h2>View / Edit Post</h2>
-    
-    <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
-        <input type="submit" value="Delete" class="btn-delete btn" aria-label="Delete post">
-    </form>
-</div>
+        <!-- Admin Content -->
+        <main class="admin-main">
+            <div class="admin-title">
+                <h2 class="admin-title__heading">Edit Post</h2>
+                
+                <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST" class="admin-post__delete-form" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                    <button type="submit" class="button button--danger"><i class="fas fa-trash-alt"></i> Delete</button>
+                </form>
+            </div>
 
-<form action="/edit-post/<%= data._id %>?_method=PUT" method="POST" enctype="multipart/form-data" onsubmit="submitEditorContent(event)">
-    <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>" id="title" required>
+            <form action="/edit-post/<%= data._id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="admin-form" onsubmit="submitEditorContent(event)">
+                <div class="form-group">
+                    <label for="title" class="form-group__label"><b>Title</b></label>
+                    <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>" id="title" class="form-group__input" required>
+                </div>
 
-    <label for="body"><b>Content</b></label>
-    <div id="editor"><%= data.body %></div>
-    <textarea id="postBody" name="body" hidden required></textarea>
+                <div class="form-group">
+                    <label for="editor" class="form-group__label"><b>Content</b></label>
+                    <div id="editor" class="editor"><%- data.body %></div>
+                    <textarea id="postBody" name="body" class="form-group__textarea" hidden required></textarea>
+                </div>
 
-    <label for="postImage"><b>Upload New Image (optional)</b></label>
-    <input type="file" name="postImage" id="postImage" accept="image/*">
-    
-    <input type="submit" value="Update" class="btn">
-</form>
+                <div class="form-group">
+                    <label for="postImage" class="form-group__label"><b>Upload New Image (optional)</b></label>
+                    <input type="file" name="postImage" id="postImage" accept="image/*" class="form-group__input">
+                </div>
 
-<script type="module">
-  import { Editor } from '@tiptap/core'
-  import StarterKit from '@tiptap/starter-kit'
-  import TextAlign from '@tiptap/extension-text-align'
-  import Image from '@tiptap/extension-image'
-  import Link from '@tiptap/extension-link'
-  import List from '@tiptap/extension-list'
+                <button type="submit" class="button button--primary"><i class="fas fa-save"></i> Update Post</button>
+            </form>
+        </main>
 
-  const editor = new Editor({
-    element: document.querySelector('#editor'),
-    extensions: [
-      StarterKit,
-      TextAlign.configure({
-        types: ['heading', 'paragraph'],
-      }),
-      Image,
-      Link,
-      List
-    ],
-    content: document.querySelector('#editor').innerHTML,
-  })
+        <!-- Admin Footer -->
+        <footer class="admin-footer">
+            <p>&copy; 2025 PreMedTalk. All rights reserved.</p>
+        </footer>
+    </div>
 
-  function submitEditorContent(event) {
-    event.preventDefault();
-    const postBody = document.getElementById('postBody');
-    postBody.value = editor.getHTML();
-    event.target.submit();
-  }
-</script>
+    <!-- TipTap Editor Script -->
+    <script src="https://unpkg.com/@tiptap/core@2.0.0-beta.120/dist/tiptap.umd.js"></script>
+    <script src="https://unpkg.com/@tiptap/starter-kit@2.0.0-beta.120/dist/tiptap-starter-kit.umd.js"></script>
+    <script src="https://unpkg.com/@tiptap/extension-link@2.0.0-beta.120/dist/tiptap-extension-link.umd.js"></script>
+    <script src="https://unpkg.com/@tiptap/extension-image@2.0.0-beta.120/dist/tiptap-extension-image.umd.js"></script>
+    <script src="https://unpkg.com/@tiptap/extension-text-align@2.0.0-beta.120/dist/tiptap-extension-text-align.umd.js"></script>
+    <script src="https://unpkg.com/@tiptap/extension-list@2.0.0-beta.120/dist/tiptap-extension-list.umd.js"></script>
+
+    <script>
+        // Initialize TipTap Editor with existing content
+        const { Editor } = window.tiptap;
+        const StarterKit = window.tiptapStarterKit.StarterKit;
+        const Link = window.tiptapExtensionLink.Link;
+        const Image = window.tiptapExtensionImage.Image;
+        const TextAlign = window.tiptapExtensionTextAlign.TextAlign;
+        const List = window.tiptapExtensionList.List;
+
+        const editor = new Editor({
+            element: document.querySelector('#editor'),
+            extensions: [
+                StarterKit,
+                Link,
+                Image,
+                TextAlign.configure({
+                    types: ['heading', 'paragraph'],
+                }),
+                List
+            ],
+            content: document.querySelector('#editor').innerHTML,
+        });
+
+        // Handle Form Submission
+        function submitEditorContent(event) {
+            event.preventDefault();
+            const postBody = document.getElementById('postBody');
+            postBody.value = editor.getHTML();
+            event.target.submit();
+        }
+    </script>
+</body>
+</html>
